@@ -9,19 +9,16 @@
             </div>
             <div class="row">
 
-            @component('components.product-card')
+            @component('components.product-card-1')
 
-            <x-product-card-1 > </x-product-card-1 >
-            <x-product-card-1 > </x-product-card-1 >
-
-            <x-product-card-1 > </x-product-card-1 >
-
-            <x-product-card-1 > </x-product-card-1 >
-            <x-product-card-1 > </x-product-card-1 >
-
-            <x-product-card-1 > </x-product-card-1 >
-
-           
+            <x-product-card-1 /> 
+            <x-product-card-1 /> 
+            <x-product-card-1 />
+            <x-product-card-1 /> 
+            <x-product-card-1 /> 
+            <x-product-card-1 /> 
+     
             </div>
+           
         </div>
     </section>
