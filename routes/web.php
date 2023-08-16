@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WEB\IndexController;
 use App\Http\Controllers\WEB\LoginController;
 use App\Http\Controllers\WEB\Product_CardController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,9 +32,9 @@ Route::get('login/form', [LoginController::class, 'index'])
 ->name('login-form-2');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/Search', [IndexController::class,'search'])
 ->middleware(['auth', 'verified'])->name('Post_Search');
@@ -46,7 +47,14 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+
 Route::get('/master', function () {
     // welcome
     return view('Sections.Index.haaaaaaaa');
 })->middleware('auth')->name('dashboard1');
+
+
+
+Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
+->name('dashboard');
+
