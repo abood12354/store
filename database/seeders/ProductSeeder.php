@@ -22,17 +22,17 @@ class ProductSeeder extends Seeder
 
         $products = Product::all();
 foreach ($products as $product) {
-    Product::whereNull('vendor_id')->first()?->update([
+    Product::whereNull('vendor_id')->first()->update([
         // 'vendor_id'=>$vendor->id,
-        'vendor_id'=>Vendor::inRandomOrder()->first()?->id,
+        'vendor_id'=>Vendor::inRandomOrder()->first()->id,
     ]);
 }
 
 $products = Product::all();
 foreach ($products as $product) {
-    Product::whereNull('admin_id')->first()?->update([
+    Product::whereNull('admin_id')->first()->update([
         // 'vendor_id'=>$vendor->id,
-        'admin_id'=>Admin::inRandomOrder()->first()?->id,
+        'admin_id'=>Admin::inRandomOrder()->first()->id,
     ]);
 }
 

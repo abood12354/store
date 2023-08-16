@@ -17,7 +17,7 @@
                         <div class="col-6">
                             <!-- desktop logo Start -->
                             <div class="mobile-logo text-center">
-                                <a href="index.html"><img src="assets/images/logo.svg" alt="Logo"></a>
+                                <a href="index.html"><img src="{{asset('assets/images/logo.svg')}}" alt="Logo"></a>
                             </div>
                             <!-- desktop logo Ends -->
                         </div>
@@ -42,7 +42,7 @@
                                                         <td class="checkout-product">
                                                             <div class="product-cart d-flex">
                                                                 <div class="product-thumb">
-                                                                    <img src="assets/images/product-cart/product-1.png"
+                                                                    <img src="{{asset('assets/images/product-cart/product-1.png')}}"
                                                                         alt="Product">
                                                                 </div>
                                                                 <div class="product-content media-body">
@@ -80,7 +80,7 @@
                                                         <td class="checkout-product">
                                                             <div class="product-cart d-flex">
                                                                 <div class="product-thumb">
-                                                                    <img src="assets/images/product-cart/product-2.png"
+                                                                    <img src="{{asset('assets/images/product-cart/product-2.png')}}"
                                                                         alt="Product">
                                                                 </div>
                                                                 <div class="product-content media-body">
@@ -118,7 +118,7 @@
                                                         <td class="checkout-product">
                                                             <div class="product-cart d-flex">
                                                                 <div class="product-thumb">
-                                                                    <img src="assets/images/product-cart/product-3.png"
+                                                                    <img src="{{asset('assets/images/product-cart/product-3.png')}}"
                                                                         alt="Product">
                                                                 </div>
                                                                 <div class="product-content media-body">
@@ -156,7 +156,7 @@
                                                         <td class="checkout-product">
                                                             <div class="product-cart d-flex">
                                                                 <div class="product-thumb">
-                                                                    <img src="assets/images/product-cart/product-4.png"
+                                                                    <img src="{{asset('assets/images/product-cart/product-4.png')}}"
                                                                         alt="Product">
                                                                 </div>
                                                                 <div class="product-content media-body">
@@ -241,7 +241,7 @@
                 <!-- navbar close  Ends -->
     
                 <!-- navbar top Start -->
-                @include('Sections.Index.navbar_top')
+                @include('Main.navbar_top')
                 <!-- navbar top Ends -->
     
                 <!-- main navbar Start -->
@@ -250,7 +250,7 @@
                         <nav class="main-navbar d-lg-flex justify-content-between align-items-center">
                             <!-- desktop logo Start -->
                             <div class="desktop-logo d-none d-lg-block">
-                                <a href="index.html"><img src="assets/images/logo.svg" alt="Logo"></a>
+                                <a href="index.html"><img src="{{asset('assets/images/logo.svg')}}" alt="Logo"></a>
                             </div>
                             <!-- desktop logo Ends -->
                             <!-- navbar menu Start -->
@@ -299,7 +299,7 @@
                                                             </ul>
                                                         </li>
                                                         <li class="mega-dropdown-list">
-                                                            <img src="assets/images/menu-slider-1.png" alt="">
+                                                            <img src="{{asset('assets/images/menu-slider-1.png')}}" alt="">
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -331,29 +331,12 @@
                             <!-- navbar menu Ends -->
                             <div class="navbar-search-cart d-none d-lg-flex">
                                 <!-- navbar search start -->
-                                <div class="navbar-search search-style-5">
-                                    <div class="search-select">
-                                        <select>
-                                            <option value="">All</option>
-                                            <option value="1">option 01</option>
-                                            <option value="2">option 02</option>
-                                            <option value="3">option 03</option>
-                                            <option value="4">option 04</option>
-                                            <option value="5">option 05</option>
-                                        </select>
-                                    </div>
-                                    <div class="search-input">
-                                        <input type="text" placeholder="Search">
-                                    </div>
-                                    <div class="search-btn">
-                                        <button><i class="lni lni-search-alt"></i></button>
-                                    </div>
-                                </div>
+                             @include('Main.Search')
                                 <!-- navbar search Ends -->
                                 <!-- navbar cart start -->
                                 <div class="navbar-cart">
                                     <a class="icon-btn primary-icon-text icon-text-btn" href="javascript:void(0)">
-                                        <img src="assets/images/icon-svg/cart-1.svg" alt="Icon">
+                                        <img src="{{asset('assets/images/icon-svg/cart-1.svg')}}" alt="Icon">
                                         <span class="icon-text text-style-1">88</span>
                                     </a>
     
@@ -370,7 +353,7 @@
                                                             <td class="checkout-product">
                                                                 <div class="product-cart d-flex">
                                                                     <div class="product-thumb">
-                                                                        <img src="assets/images/product-cart/product-1.png"
+                                                                        <img src="{{asset('assets/images/product-cart/product-1.png')}}"
                                                                             alt="Product">
                                                                     </div>
                                                                     <div class="product-content media-body">
@@ -408,7 +391,7 @@
                                                             <td class="checkout-product">
                                                                 <div class="product-cart d-flex">
                                                                     <div class="product-thumb">
-                                                                        <img src="assets/images/product-cart/product-2.png"
+                                                                        <img src="{{asset('assets/images/product-cart/product-2.png')}}"
                                                                             alt="Product">
                                                                     </div>
                                                                     <div class="product-content media-body">
@@ -446,7 +429,7 @@
                                                             <td class="checkout-product">
                                                                 <div class="product-cart d-flex">
                                                                     <div class="product-thumb">
-                                                                        <img src="assets/images/product-cart/product-3.png"
+                                                                        <img src="{{asset('assets/images/product-cart/product-3.png')}}"
                                                                             alt="Product">
                                                                     </div>
                                                                     <div class="product-content media-body">
@@ -484,7 +467,7 @@
                                                             <td class="checkout-product">
                                                                 <div class="product-cart d-flex">
                                                                     <div class="product-thumb">
-                                                                        <img src="assets/images/product-cart/product-4.png"
+                                                                        <img src="{{asset('assets/images/product-cart/product-4.png')}}"
                                                                             alt="Product">
                                                                     </div>
                                                                     <div class="product-content media-body">

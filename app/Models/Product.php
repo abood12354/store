@@ -13,6 +13,8 @@ class Product extends Model
         'title',
         'desc',
         'price',
+        'status',
+        'Assess',
         'quantity',
         'sell',
     ];

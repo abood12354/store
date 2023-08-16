@@ -1,18 +1,19 @@
-<section class="product-wrapper pt-100 pb-70">
+ <!--====== Product Style 7 Part Start ======-->
+ <section class="product-wrapper pt-100 pb-100">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="mb-50">
-                        <h1 class="heading-1 font-weight-700">Featured Items</h1>
+                        <h1 class="heading-1 font-weight-700">Recent Items</h1>
                     </div>
                 </div>
             </div>
             <div class="row">
-
-            @component('components.product-card-1')
+            @component('components.product-card-2')
             @foreach ($products as  $product )
-            <x-product-card-1 :product="$product" /> 
+            <x-product-card-2 :product="$product" /> 
             @endforeach
+
             </div>
            
         </div>

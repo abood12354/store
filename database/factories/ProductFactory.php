@@ -24,8 +24,10 @@ class ProductFactory extends Factory
             // $table->decimal('sell',9,2);
        //     'title' => $this->faker->text(5),
            // 'desc' => $this->faker->sentence(3),
+           'name' => $this->faker->name(),
             'price' => $this->faker->numberBetween(0,100000),
             'quantity' => $this->faker->numberBetween(0,10),
+            'Assess'=> $this->faker->numberBetween(0,5),
             'sell' => $this->faker->numberBetween(0,100),
         ];
     }

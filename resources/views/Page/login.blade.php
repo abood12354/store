@@ -173,6 +173,15 @@ i span{
     @endsection
 
 @section('content')
+
+@if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
 <div class="bg-img">
      <div class="content">
         <header>Login Form</header>
@@ -188,7 +197,7 @@ i span{
             <!-- class="block mt-1 w-full" -->
             <x-text-input id="email"  type="email"  name="email" :value="old('email')" required autocomplete="username" />
             <!-- class="mt-2" -->
-            <x-input-error :messages="$errors->get('email')"  />
+            
           </div>
           <span class="fa fa-user spany">Password</span>
           <div class="field space">
@@ -202,7 +211,7 @@ i span{
                 name="password"
                 required autocomplete="current-password" />
 
-<x-input-error :messages="$errors->get('password')" class="mt-2" />
+
           </div>
           <div class="pass">
 

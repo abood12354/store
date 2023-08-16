@@ -122,7 +122,8 @@ class ClientSeeder extends Seeder
 
         foreach ($clients as $client) {
             User::whereNull('userable_id')->first()?->update([
-                'userable_id' => $client->id,
+                'userable_id' => $client->inRandomOrder()->first()?->id,
+                // inRandomOrder()->first()?->id,
                 'userable_type' => $client::class
             ]);
         }
