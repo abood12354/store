@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WEB\IndexController;
 use App\Http\Controllers\WEB\LoginController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,9 +29,9 @@ Route::get('login/form', [LoginController::class, 'index'])
 ->name('login-form-2');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -40,6 +41,15 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/master', function () {
-    return view('welcome');
-})->middleware('auth')->name('dashboard1');
+
+// Route::get('/master', function () {
+//     return view('welcome');
+// })->middleware('auth')->name('dashboard1');
+
+
+// Route::prefix('/dashboard')->namespace('app\Http\Controllers\Admin')->group(function(){
+//     Route::get('dashboard','AdminDashboardController@dashboard');
+// });
+
+Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
+->name('dashboard');
