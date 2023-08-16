@@ -6,7 +6,7 @@
 
     @section('content')
 
-    @include('Sections.Index.navigation')
+    @include('Main.navigation')
     @include('Sections.Index.header_style_1')
     @include('Sections.Index.content-card-style-4')
     @include('Sections.Index.Product-Style-part-one')

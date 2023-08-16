@@ -10,12 +10,9 @@
             </div>
             <div class="row">
             @component('components.product-card-2')
-<x-product-card-2 /> 
-<x-product-card-2 /> 
-<x-product-card-2 /> 
-<x-product-card-2 /> 
-<x-product-card-2 /> 
-<x-product-card-2 /> 
+            @foreach ($products as  $product )
+            <x-product-card-2 :product="$product" /> 
+            @endforeach
 
             </div>
            
