@@ -52,12 +52,14 @@ require __DIR__.'/auth.php';
 
 
 
-Route::get('adminlogin', [AdminController::class, 'login'])
-->name('adminloin');
+Route::match(['get', 'post'], 'adminlogin', [AdminController::class, 'login'])
+   ->name('adminlogin');
 
 Route::group(['middleware'=>['admin']],function(){
     Route::get('dashboard', [AdminController::class, 'dashboard'])
     ->name('dashboard');
+    
+    Route::get('logout', [AdminController::class, 'logout'])->name('logout');
 });
 
 

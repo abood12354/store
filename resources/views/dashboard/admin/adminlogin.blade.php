@@ -188,7 +188,7 @@ i span{
 <div class="bg-img">
      <div class="content">
         <header>Login Form</header>
-        <form action="{{ route('login') }}" method="POST">
+        <form action="{{ url('adminlogin') }}" method="POST">
           @csrf
           <span class="fa fa-user spany">Email</span>
           <div class="field">

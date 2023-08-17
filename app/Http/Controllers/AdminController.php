@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+//use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -13,10 +16,36 @@ class AdminController extends Controller
         return view('dashboard.admin.dashboard');
 
     }
-    public function login(){
+    public function login(Request $request){
+        if($request->isMethod('post')) {
+
+            // Define credentials from request
+            $credentials = [
+              'email' => $request->input('email'), 
+              'password' => $request->input('password')
+            ];
+        
+            if(Auth::guard('admin')->attempt($credentials)) {
+            
+              // Authentication passed...
+        
+              $user = Auth::guard('admin')->user(); 
+        
+              $admin = $user->admin;
+                return redirect("dashboard");
+            
+            }else{
+                return redirect()->back()->with("error_message","Invalid email or password");
+            }
+
+        }
         return view('dashboard.admin.adminlogin');
     }
 
+    public function logout(){
+        Auth::guard('admin')->logout();
+        return redirect('adminlogin');
+    }
     /**
      * Display a listing of the resource.
      */

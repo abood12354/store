@@ -6,7 +6,7 @@ use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Str;
 class AdminSeeder extends Seeder
 {
     /**
@@ -30,21 +30,23 @@ class AdminSeeder extends Seeder
 //     }
 public function run()
 {
-
+    $admin = new Admin([
+        'type' => 'superadmin',
+        'status' => 1
+     ]);
   $user = User::create([
      'username' => 'Foxasdf',
      'firstName' => 'Mohammed',
      'lastName' => 'Algald',
-     'email' => 'foxasdf8@gmail',
+     'email' => 'foxasdf8@gmail.com',
      'gendor'=>'male',
      'password' => bcrypt('password'),
-     'birthDate' => '2000-03-09'
+     'birthDate' => '2000-03-09',
+     'userable_type' => 'Admin', 
+     'userable_id' => $admin->id,
   ]);
 
-  $admin = new Admin([
-     'type' => 'superadmin',
-     'status' => 1
-  ]);
+
 
   $admin->user()->associate($user);
 
