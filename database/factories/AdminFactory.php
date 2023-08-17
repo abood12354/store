@@ -21,6 +21,8 @@ class AdminFactory extends Factory
             'user_id' => User::inRandomOrder()->first()?->id,
             //'name' => $this->faker->name(),
             // 'user_id' => User::inRandomOrder()->first()?->id,
+            'type'=>'admin',
+            'status'=>1,
         ];
     }
 }

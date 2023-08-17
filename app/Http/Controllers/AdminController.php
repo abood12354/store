@@ -8,6 +8,15 @@ use App\Http\Requests\UpdateAdminRequest;
 
 class AdminController extends Controller
 {
+
+    public function dashboard(){
+        return view('dashboard.admin.dashboard');
+
+    }
+    public function login(){
+        return view('dashboard.admin.adminlogin');
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WEB\IndexController;
 use App\Http\Controllers\WEB\LoginController;
@@ -8,6 +9,8 @@ use App\Http\Controllers\WEB\Product_CardController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\Admin;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,13 +51,13 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/master', function () {
-    // welcome
-    return view('Sections.Index.haaaaaaaa');
-})->middleware('auth')->name('dashboard1');
 
+Route::get('adminlogin', [AdminController::class, 'login'])
+->name('adminloin');
 
+Route::group(['middleware'=>['admin']],function(){
+    Route::get('dashboard', [AdminController::class, 'dashboard'])
+    ->name('dashboard');
+});
 
-Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
-->name('dashboard');
 
