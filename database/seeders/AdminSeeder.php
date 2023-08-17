@@ -12,20 +12,44 @@ class AdminSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
+//     public function run(): void
+//     {
 
 
-Admin::factory()->count(3)->create();
-$admins = Admin::all();
+// Admin::factory()->count(3)->create();
+// $admins = Admin::all();
 
-foreach ($admins as $admin) {
-    User::whereNull('userable_id')->first()?->update([
-        'userable_id' => $admin->id,
-        'userable_type' => $admin::class
+// foreach ($admins as $admin) {
+//     User::whereNull('userable_id')->first()?->update([
+//         'userable_id' => $admin->id,
+//         'userable_type' => $admin::class
         
-    ]);
+//     ]);
+// }
+
+//     }
+public function run()
+{
+
+  $user = User::create([
+     'username' => 'Foxasdf',
+     'firstName' => 'Mohammed',
+     'lastName' => 'Algald',
+     'email' => 'foxasdf8@gmail',
+     'gendor'=>'male',
+     'password' => bcrypt('password'),
+     'birthDate' => '2000-03-09'
+  ]);
+
+  $admin = new Admin([
+     'type' => 'superadmin',
+     'status' => 1
+  ]);
+
+  $admin->user()->associate($user);
+
+  $admin->save();
+
 }
 
-    }
 }
