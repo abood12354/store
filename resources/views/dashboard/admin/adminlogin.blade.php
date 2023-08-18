@@ -177,17 +177,22 @@ i span{
 
 @section('content')
 
-@if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
 
 <div class="bg-img">
      <div class="content">
         <header>Login Form</header>
+
+        
+        @if ($errors->any())
+
+        @foreach ($errors->all() as $error)
+        
+        <span style="color: red;">{{ $error }}</span>
+        
+        @endforeach
+        
+        @endif
+
         <form action="{{ url('adminlogin') }}" method="POST">
           @csrf
           <span class="fa fa-user spany">Email</span>

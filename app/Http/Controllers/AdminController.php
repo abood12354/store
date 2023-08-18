@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateAdminRequest;
 //use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Validator;
 
 class AdminController extends Controller
 {
@@ -19,6 +20,21 @@ class AdminController extends Controller
     public function login(Request $request){
         if($request->isMethod('post')) {
 
+            $rules = [
+                'email' => 'required|email|max:255',
+                'password' => 'required|string|max:30' 
+              ];
+
+                $customMessages =[
+                    'email.required'=> 'email is requierd',
+                    'email.email'=>'valid Email is requierd',
+                    'password.required' => 'password is required'
+                ];
+
+                $this->validate($request,$rules,$customMessages);
+                
+                // $validator = Validator::make($request->all(), $rules, $customMessages);
+                // $validator->validateRequired();
             // Define credentials from request
             $credentials = [
               'email' => $request->input('email'), 
@@ -31,12 +47,18 @@ class AdminController extends Controller
         
               $user = Auth::guard('admin')->user(); 
         
-              $admin = $user->admin;
-                return redirect("dashboard");
+             //$admin = $user->admin;
+             if ($user->userable_type ===Admin::class) {
+                 // Allow admin login
+                 return redirect("dashboard");
+             } else {
+                return redirect()->back()->withErrors(['email' => 'not an admin']);
+             }
+           
             
             }else{
-                return redirect()->back()->with("error_message","Invalid email or password");
-            }
+                return redirect()->back()->withErrors(['email' => 'Invalid email or password']);
+              }
 
         }
         return view('dashboard.admin.adminlogin');

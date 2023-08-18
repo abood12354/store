@@ -42,7 +42,7 @@ public function run()
      'gendor'=>'male',
      'password' => bcrypt('password'),
      'birthDate' => '2000-03-09',
-     'userable_type' => 'Admin', 
+     'userable_type' => $admin::class, 
      'userable_id' => $admin->id,
   ]);
 
