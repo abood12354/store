@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\Client;
+use App\Models\Vendor;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -9,48 +12,63 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-class LoginRequest extends FormRequest
-{
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
+use function PHPUnit\Framework\isNull;
+
+class LoginRequest extends FormRequest {
+
+  public $user;
+  
+  public function authorize(): bool
+  {
+    return true;
+  }
+
+  public function rules(): array
+  {
+    return [
+      'email' => ['required', 'string', 'email','max:255'],
+      'password' => ['required', 'string','min:8','max:30'], 
+    ];
+  }
+
+  public function authenticate():void
+  {
+    $this->ensureIsNotRateLimited();
+
+    if (Auth::guard('user')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+    $this->user = Auth::guard('user')->user(); 
+       RateLimiter::clear($this->throttleKey());
+       return; 
     }
+    RateLimiter::hit($this->throttleKey());
+    throw ValidationException::withMessages([
+      'email' => trans('auth.failed'),  
+    ]);
+    // Set as property
+}
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
-        ];
+
+  public function type()
+  
+  {
+    // dd(isNull($this->user->userable_type));
+    // if (isNull($this->user)) {
+    //   // Use property
+    //   return redirect("login"); 
+    // }
+   // dd($this->user->userable_type);
+    //dd( Admin::class);
+    if ($this->user->userable_type === "App\Models\Admin") {
+      return redirect("dashboard");
+
+    } else if ($this->user->userable_type === "App\Models\Client") {  
+       // return redirect()->intended(RouteServiceProvider::HOME);
+      return redirect("index");
+    } else if ($this->user->userable_type === "App\Models\Vendor") {
+      return redirect("vendorpage");
     }
-
-    /**
-     * Attempt to authenticate the request's credentials.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function authenticate(): void
-    {
-        $this->ensureIsNotRateLimited();
-
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
-            ]);
-        }
-
-        RateLimiter::clear($this->throttleKey());
-    }
+    return redirect("login"); 
+  }
 
     /**
      * Ensure the login request is not rate limited.

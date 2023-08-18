@@ -41,11 +41,11 @@ class AdminController extends Controller
               'password' => $request->input('password')
             ];
         
-            if(Auth::guard('admin')->attempt($credentials)) {
+            if(Auth::guard('user')->attempt($credentials)) {
             
               // Authentication passed...
         
-              $user = Auth::guard('admin')->user(); 
+              $user = Auth::guard('user')->user(); 
         
              //$admin = $user->admin;
              if ($user->userable_type ===Admin::class) {
@@ -65,8 +65,8 @@ class AdminController extends Controller
     }
 
     public function logout(){
-        Auth::guard('admin')->logout();
-        return redirect('adminlogin');
+        Auth::guard('user')->logout();
+        return redirect('login');
     }
     /**
      * Display a listing of the resource.

@@ -27,7 +27,7 @@ use App\Http\Middleware\Admin;
 // })->middleware('auth');
 
 Route::get('/index', [IndexController::class,'index'])
-->middleware(['auth', 'verified'])->name('main_page');
+->middleware(['admin'])->name('main_page');
 // Route::get('/index', [Product_CardController::class,'index'])
 // ->middleware(['auth', 'verified'])->name('main_page_1');
 
