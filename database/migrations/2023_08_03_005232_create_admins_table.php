@@ -15,7 +15,10 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('type');
+            $table->tinyInteger('status');
             $table->timestamps();
+
         });
     }
 

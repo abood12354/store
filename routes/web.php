@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WEB\IndexController;
 use App\Http\Controllers\WEB\LoginController;
@@ -8,8 +9,12 @@ use App\Http\Controllers\WEB\Product_CardController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\WEB\CartController;
 use App\Http\Controllers\WEB\ProductPageController;
+
+use App\Http\Middleware\Admin;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -69,30 +74,27 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-// <<<<<<< HEAD
-// <<<<<<< HEAD
-// =======
 
-// >>>>>>> 54d6b352f4f9b0e782d776fce1a9e6888a437762
 Route::get('/master', function () {
     // welcome
     return view('Sections.Index.haaaaaaaa');
 })->middleware('auth')->name('dashboard1');
-// <<<<<<< HEAD
-// =======
 
-// Route::get('/master', function () {
-//     return view('welcome');
-// })->middleware('auth')->name('dashboard1');
-// =======
-// >>>>>>> 54d6b352f4f9b0e782d776fce1a9e6888a437762
 
 
 
 Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
 ->name('dashboard');
-// <<<<<<< HEAD
-// >>>>>>> be63818a07765556cf2eb31df43768e59908bd2a
-// =======
 
-// >>>>>>> 54d6b352f4f9b0e782d776fce1a9e6888a437762
+
+Route::match(['get', 'post'], 'adminlogin', [AdminController::class, 'login'])
+   ->name('adminlogin');
+
+Route::group(['middleware'=>['admin']],function(){
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('update_password', [AdminController::class, 'updatePassword'])->name('update_password');
+    Route::get('logout', [AdminController::class, 'logout'])->name('logout');
+});
+
+
+

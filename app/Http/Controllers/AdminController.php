@@ -5,9 +5,74 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+//use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Validator;
 
 class AdminController extends Controller
 {
+
+    public function dashboard(){
+        return view('dashboard.admin.dashboard');
+
+    }
+    public function login(Request $request){
+        if($request->isMethod('post')) {
+
+            $rules = [
+                'email' => 'required|email|max:255',
+                'password' => 'required|string|max:30' 
+              ];
+
+                $customMessages =[
+                    'email.required'=> 'email is requierd',
+                    'email.email'=>'valid Email is requierd',
+                    'password.required' => 'password is required'
+                ];
+
+                $this->validate($request,$rules,$customMessages);
+                
+                // $validator = Validator::make($request->all(), $rules, $customMessages);
+                // $validator->validateRequired();
+            // Define credentials from request
+            $credentials = [
+              'email' => $request->input('email'), 
+              'password' => $request->input('password')
+            ];
+        
+            if(Auth::guard('admin')->attempt($credentials)) {
+            
+              // Authentication passed...
+        
+              $user = Auth::guard('admin')->user(); 
+        
+             //$admin = $user->admin;
+             if ($user->userable_type ===Admin::class) {
+                 // Allow admin login
+                 return redirect("dashboard");
+             } else {
+                return redirect()->back()->withErrors(['email' => 'not an admin']);
+             }
+           
+            
+            }else{
+                return redirect()->back()->withErrors(['email' => 'Invalid email or password']);
+              }
+
+        }
+        return view('dashboard.admin.adminlogin');
+    }
+
+    public function updatePassword(){
+
+        return view('dashboard.admin.update_password');
+    }
+
+    public function logout(){
+        Auth::guard('admin')->logout();
+        return redirect('adminlogin');
+    }
     /**
      * Display a listing of the resource.
      */
