@@ -70,21 +70,29 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 // <<<<<<< HEAD
+// <<<<<<< HEAD
+// =======
+
+// >>>>>>> 54d6b352f4f9b0e782d776fce1a9e6888a437762
 Route::get('/master', function () {
     // welcome
     return view('Sections.Index.haaaaaaaa');
 })->middleware('auth')->name('dashboard1');
+// <<<<<<< HEAD
 // =======
 
 // Route::get('/master', function () {
 //     return view('welcome');
 // })->middleware('auth')->name('dashboard1');
+// =======
+// >>>>>>> 54d6b352f4f9b0e782d776fce1a9e6888a437762
 
 
-// Route::prefix('/dashboard')->namespace('app\Http\Controllers\Admin')->group(function(){
-//     Route::get('dashboard','AdminDashboardController@dashboard');
-// });
 
 Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
 ->name('dashboard');
+// <<<<<<< HEAD
 // >>>>>>> be63818a07765556cf2eb31df43768e59908bd2a
+// =======
+
+// >>>>>>> 54d6b352f4f9b0e782d776fce1a9e6888a437762
