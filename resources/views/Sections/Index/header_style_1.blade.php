@@ -1,3 +1,8 @@
+@if (session('success'))
+                <div class="alert alert-success">
+                    {{session('success')}}
+                </div>
+            @endif()
 <section class="header-style-1">
         <div class="header-big">
             <div class="header-items-active">
@@ -30,8 +35,10 @@
                 <div class="product-content">
                     <h4 class="title"><a href="product-details-page.html">Metro 38 Date</a></h4>
                     <p>Reference 1102</p>
+                    <form>
                     <a href="javascript:void(0)" class="main-btn primary-btn-border"> <img src="assets/images/icon-svg/cart-5.svg" alt="">$
                         399</a>
+                        </form>
                 </div>
             </div>
             <div class="header-min-item product-style-25 bg_cover"

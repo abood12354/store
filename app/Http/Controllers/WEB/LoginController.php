@@ -13,9 +13,9 @@ class LoginController extends Controller
     //     return view('Page.login');
     // }
 
-    public function index()
-    {
-        $users=User::all();
-        return response()->json($users);
-    }
+    // public function index()
+    // {
+    //     $users=User::all();
+    //     return response()->json($users);
+    // }
 }

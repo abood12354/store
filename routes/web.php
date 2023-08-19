@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WEB\IndexController;
 use App\Http\Controllers\WEB\LoginController;
 use App\Http\Controllers\WEB\Product_CardController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\WEB\CartController;
+use App\Http\Controllers\WEB\ProductPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,19 +28,38 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/index', [IndexController::class,'index'])
 ->middleware(['auth', 'verified'])->name('main_page');
-// Route::get('/index', [Product_CardController::class,'index'])
-// ->middleware(['auth', 'verified'])->name('main_page_1');
+Route::get('/index_2', [Product_CardController::class,'index'])
+->middleware(['auth', 'verified'])->name('main_page_1');
 
-Route::get('login/form', [LoginController::class, 'index'])
-->name('login-form-2');
+// Route::get('login/form', [LoginController::class, 'index'])
+// ->name('login-form-2');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/Search', [IndexController::class,'search'])
 ->middleware(['auth', 'verified'])->name('Post_Search');
+
+
+
+// Show shopping cart 
+Route::get('/cart', [CartController::class,'index']);
+
+// Add item to cart
+Route::post('/cart/add/{id}', [CartController::class,'add'])
+->name('add_cart'); 
+
+// Update item quantity in cart
+Route::post('/cart/update/{id}', [CartController::class,'update']);
+
+// Remove item from cart
+Route::delete('/cart/remove/{id}', [CartController::class,'remove']);
+
+Route::get('/product_page/{id}', [ProductPageController::class,'index'])
+->middleware(['auth', 'verified'])->name('product_page');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -46,7 +69,22 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+// <<<<<<< HEAD
 Route::get('/master', function () {
     // welcome
     return view('Sections.Index.haaaaaaaa');
 })->middleware('auth')->name('dashboard1');
+// =======
+
+// Route::get('/master', function () {
+//     return view('welcome');
+// })->middleware('auth')->name('dashboard1');
+
+
+// Route::prefix('/dashboard')->namespace('app\Http\Controllers\Admin')->group(function(){
+//     Route::get('dashboard','AdminDashboardController@dashboard');
+// });
+
+Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
+->name('dashboard');
+// >>>>>>> be63818a07765556cf2eb31df43768e59908bd2a
