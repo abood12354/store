@@ -7,6 +7,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
 
             @component('components.product-card-1')

@@ -38,10 +38,12 @@ class RegisteredUserController extends Controller
             'lastName' => ['required', 'string', 'max:255'],
             'gendor' => ['required', 'string', 'max:255'],
             'birthDate'=> ['required', 'date'],
+            'phoneNumber'=>['required','string', 'max:11'],
+            'address'=>['required','string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-        $clients=Client::all();
+
         $user = User::create([
             'username' => $request->username,
             'firstName' => $request->firstName,
@@ -50,10 +52,20 @@ class RegisteredUserController extends Controller
             'birthDate'=>$request->birthDate,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'userable_id'=>null,
-            'userable_type'=> $clients::class,
             'email' => $request->email,
         ]);
+
+
+        $client = new Client([
+            'phoneNumber' => $request->phoneNumber,
+            'address' => $request->address,  
+        ]);
+$client->user_id = $user->id;
+$client->save();
+
+$user->userable_type="client";
+$user->userable_id=$client->id;
+$user->save();
 
         event(new Registered($user));
 
