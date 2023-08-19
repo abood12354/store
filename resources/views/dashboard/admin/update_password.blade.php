@@ -38,7 +38,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="admin_email">Email address</label>
-                    <input  class="form-control" id="exampleInputEmail1" value= "{{ Auth::guard('user')->user()->email }}">
+                    <input  class="form-control" id="exampleInputEmail1" value= "{{ Auth::guard('admin')->user()->email }}">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Old Password</label>
