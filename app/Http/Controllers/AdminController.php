@@ -64,6 +64,11 @@ class AdminController extends Controller
         return view('dashboard.admin.adminlogin');
     }
 
+    public function updatePassword(){
+
+        return view('dashboard.admin.update_password');
+    }
+
     public function logout(){
         Auth::guard('user')->logout();
         return redirect('login');
