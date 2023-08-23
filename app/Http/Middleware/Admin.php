@@ -76,6 +76,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
+        
         if(!Auth::guard('user')->check()){
             return redirect('/login');
         }

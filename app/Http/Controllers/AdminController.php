@@ -74,9 +74,9 @@ class AdminController extends Controller
         return redirect('login');
     }
 
-    public function updatePassword(){
-        return view('dashboard.admin.adminlogin');
-    }
+    // public function updatePassword(){
+    //     return view('dashboard.admin.adminlogin');
+    // }
     /**
      * Display a listing of the resource.
      */
