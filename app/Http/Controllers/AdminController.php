@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use App\Models\User;
 //use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Validator;
 
 class AdminController extends Controller
@@ -18,6 +20,10 @@ class AdminController extends Controller
 
     }
     public function login(Request $request){
+        if(Auth::guard('admin')->check()) {
+            // Admin is already logged in
+            return redirect()->intended();
+          }
         if($request->isMethod('post')) {
 
             $rules = [
@@ -64,14 +70,45 @@ class AdminController extends Controller
         return view('dashboard.admin.adminlogin');
     }
 
-    public function updatePassword(){
+    public function updatePassword(Request $request){
 
+        if($request->isMethod('post')){
+      
+          $data = $request->validate([
+            'current_pwd' => 'required',
+            'new_pwd' => 'required|string|min:8|regex:/[a-z]/|regex:/[0-9]/', 
+           // 'confirm_pwd' => 'required|same:new_pwd'
+          ]);
+      
+          
+          if(Hash::check($data['current_pwd'], Auth::guard('admin')->user()->password)){
+      
+            User::where('id',Auth::guard('admin')->user()->id)->update(['password' => bcrypt($data['new_pwd'])]);
+      
+            return redirect()->back()->with('success_message','Password updated successfully!');
+      
+          } else {
+            return redirect()->back()->with('error_message','Current password is wrong');
+          }
+      
+        }
+      
         return view('dashboard.admin.update_password');
-    }
+      
+      }
 
     public function logout(){
         Auth::guard('admin')->logout();
         return redirect('adminlogin');
+    }
+
+    public function checkPassword(Request $request){
+        $data =$request->all();
+        if(Hash::check($data['current_pwd'], Auth::guard('admin')->user()->password)){
+            return "true";
+        }else{
+        return "false";
+        }
     }
     /**
      * Display a listing of the resource.
