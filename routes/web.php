@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CmsContoller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WEB\IndexController;
 use App\Http\Controllers\WEB\LoginController;
@@ -9,7 +9,9 @@ use App\Http\Controllers\WEB\Product_CardController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CmsFrontController;
 use App\Http\Middleware\Admin;
+use App\Models\CmsPage;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,12 @@ Route::get('/index', [IndexController::class,'index'])
 Route::get('login/form', [LoginController::class, 'index'])
 ->name('login-form-2');
 
+//CMS Pages
+$cmsUrls= CmsPage::select('url')->where('status',1)->get()->pluck('url')->toArray();
+foreach ($cmsUrls as $url){
+
+    Route::get('/'.$url, [CmsFrontController::class, 'cmsPage'])->name('cmsPage');
+}
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -58,8 +66,15 @@ Route::match(['get', 'post'], 'adminlogin', [AdminController::class, 'login'])
 Route::group(['middleware'=>['admin']],function(){
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::match(['get','post'],'update-password', [AdminController::class, 'updatePassword'])->name('update_password');
+    Route::match(['get','post'],'update-details', [AdminController::class, 'updateDetails'])->name('update_details');
     Route::post('check-current-password', [AdminController::class, 'checkPassword'])->name('check_current_password');
     Route::get('logout', [AdminController::class, 'logout'])->name('logout');
+
+ //cms
+    Route::get('cms-pages', [CmsContoller::class, 'index'])->name('cms');
+    Route::post('update-cms-pages-status', [CmsContoller::class, 'update'])->name('update_cms_pages_status');
+    Route::match(['get','post'],'add-edit-cms-page/{id?}', [CmsContoller::class, 'edit'])->name('add_edit_cms_page');
+    Route::get('delete-cms-page/{id?}', [CmsContoller::class, 'destroy'])->name('delete_cms');
 });
 
 

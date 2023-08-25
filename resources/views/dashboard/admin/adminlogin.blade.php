@@ -200,10 +200,11 @@ i span{
             <span class="fa fa-user"></span>
             <!-- <input type="text" placeholder="Email" > -->
 
-            <!-- :value="__('Email')" -->
+       
             <x-input-label for="email"  />
             <!-- class="block mt-1 w-full" -->
-            <x-text-input id="email"  type="email"  name="email" :value="old('email')" required autocomplete="username" />
+            <input id="email"  type="email"  name="email"
+            @if(isset($_COOKIE["email"])) value="{{ $_COOKIE["email"] }}" @endif required autocomplete="username"   >
             <!-- class="mt-2" -->
             
           </div>
@@ -214,17 +215,18 @@ i span{
             
             <x-input-label for="password"  />
 
-<x-text-input id="password" 
+<input id="password" 
                 type="password"
                 name="password"
-                required autocomplete="current-password" />
+                @if(isset($_COOKIE["password"])) value="{{ $_COOKIE["password"] }}" @endif
+                required autocomplete="current-password"   >
 
 
           </div>
           <div class="row">
             <div class="col-8">
               <div class="icheck-primary">
-                <input type="checkbox" id="remember">
+                <input type="checkbox" id="remember" name="remember"  @if(isset($_COOKIE["email"])) checked="" @endif>
                 <label for="remember">
                   Remember Me
                 </label>

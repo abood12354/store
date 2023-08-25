@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
+use App\Http\Requests\UpdateAdminPasswordRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\User;
 //use GuzzleHttp\Psr7\Request;
@@ -25,7 +27,8 @@ class AdminController extends Controller
             return redirect()->intended();
           }
         if($request->isMethod('post')) {
-
+          $data=$request->all();
+    
             $rules = [
                 'email' => 'required|email|max:255',
                 'password' => 'required|string|max:30' 
@@ -56,6 +59,17 @@ class AdminController extends Controller
              //$admin = $user->admin;
              if ($user->userable_type ===Admin::class) {
                  // Allow admin login
+
+                //remeber Admin and password with cookies
+                if(isset($data['remember'])&&!empty($data['remember'])){
+               
+                  setcookie("email",$data['email'],time()+100000);
+                  setcookie("password",$data['password'],time()+100000);
+                }else{
+                  setcookie("email","");
+                  setcookie("password","");
+                }
+
                  return redirect("dashboard");
              } else {
                 return redirect()->back()->withErrors(['email' => 'not an admin']);
@@ -69,8 +83,60 @@ class AdminController extends Controller
         }
         return view('dashboard.admin.adminlogin');
     }
+    /* public function updatePassword(Request $request)
+    {
 
+        if($request->isMethod('post')) {
+          $request=new UpdateAdminPasswordRequest;
+            $user = auth()->guard('admin')->user();
+
+           $data = $request->validated();
+
+            if ($request->updatePassword($data, $user)) {
+                return redirect()
+                    ->back()
+                    ->with('success_message', 'Password updated successfully!');
+
+            } else {
+                return redirect()
+                    ->back()
+                    ->with('error_message', 'Current password is wrong');
+            }
+
+        }
+
+        return view('dashboard.admin.update_password');
+        
+    }
+    */
+  
     public function updatePassword(Request $request){
+
+        if($request->isMethod('post')){
+      
+          $data = $request->validate([
+            'current_pwd' => 'required',
+            'new_pwd' => 'required|string|min:8|regex:/[a-z]/|regex:/[0-9]/', 
+           'confirm_pwd' => 'required|same:new_pwd'
+          ]);
+      
+          
+          if(Hash::check($data['current_pwd'], Auth::guard('admin')->user()->password)){
+      
+            User::where('id',Auth::guard('admin')->user()->id)->update(['password' => bcrypt($data['new_pwd'])]);
+      
+            return redirect()->back()->with('success_message','Password updated successfully!');
+      
+          } else {
+            return redirect()->back()->with('error_message','Current password is wrong');
+          }
+      
+        }
+      
+        return view('dashboard.admin.update_password');
+      
+      }
+      public function updateDetails(Request $request){
 
         if($request->isMethod('post')){
       
@@ -93,9 +159,10 @@ class AdminController extends Controller
       
         }
       
-        return view('dashboard.admin.update_password');
+        return view('dashboard.admin.update_details');
       
       }
+      
 
     public function logout(){
         Auth::guard('admin')->logout();
