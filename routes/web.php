@@ -75,6 +75,12 @@ Route::group(['middleware'=>['admin']],function(){
     Route::post('update-cms-pages-status', [CmsContoller::class, 'update'])->name('update_cms_pages_status');
     Route::match(['get','post'],'add-edit-cms-page/{id?}', [CmsContoller::class, 'edit'])->name('add_edit_cms_page');
     Route::get('delete-cms-page/{id?}', [CmsContoller::class, 'destroy'])->name('delete_cms');
+
+  //subadmins
+    Route::get('subadmins', [AdminController::class, 'subadmins'])->name('subadmins');
+    Route::post('update-subadmin-status', [AdminController::class, 'updateSubadmin'])->name('update_subadmin_status');
+    Route::match(['get','post'],'add-edit-subadmin/{id?}', [AdminController::class, 'editSubadmin'])->name('add_edit_subadmin');
+    Route::get('delete-subadmin/{id?}', [AdminController::class, 'destroySubadmin'])->name('delete_subadmin');
 });
 
 

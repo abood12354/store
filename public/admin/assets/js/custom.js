@@ -24,7 +24,7 @@ $(document).ready(function(){
         })
 
     })
-    //update cms
+    //update cms status
 
     $(document).on("click",".updateCmsPageStatus",function(){
         var status=$(this).children("i").attr("status");
@@ -61,6 +61,39 @@ $(document).ready(function(){
 
         });
 
+    //update sub admin status
+    $(document).on("click",".updateSubadminStatus",function(){
+        var status=$(this).children("i").attr("status");
+        var subadmin_id=$(this).attr("subadmin_id");
+        $.ajax({
+         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type:'post',
+        url:'/update-subadmin-status',
+        data:{status:status,subadmin_id:subadmin_id},
+        success:function(resp){
 
+            if(resp['status']==0){
+                $("#subadmin-"+subadmin_id).html("<i class='fas fa-toggle-off'style='color: gray' status='Inactive'></i>")
 
+            }else if(resp['status']==1){
+                $("#subadmin-"+subadmin_id).html("<i class='fas fa-toggle-on' style='color: rgb(0, 115, 255)' status='Active'></i>")
+            }
+        },error:function(){
+            
+            alert("Error")
+        }
+
+        })
+
+    })
+     // confirm deletion of sub admin
+     $(document).on("click",".confirmDelete",function(){
+
+        var name = $(this).attr('username');
+        if(confirm('Are you sure you want to delete '+name+'?')){
+            return true;
+        }
+        return false;
+
+    });
 });

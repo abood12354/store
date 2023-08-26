@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('type');
-            $table->tinyInteger('status');
+            $table->string('type')->default('subadmin');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
 
         });

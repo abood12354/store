@@ -73,12 +73,13 @@
 <script src="{{ url('admin/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{ url('admin/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script>
+  //add edit cms
   $(function () {
     $("#cmspages").DataTable();
+    $("#subadmins").DataTable();
   });
 </script>
-//add edit cms
-<!-- Select2 -->
+
 <script src="{{ url('admin/assets/plugins/select2/js/select2.full.min.js')}}"></script>
 <script>
    $('.select2').select2();
