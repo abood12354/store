@@ -42,12 +42,12 @@ Route::get('/index', [IndexController::class,'index'])
 // Route::get('login/form', [LoginController::class, 'index'])
 // ->name('login-form-2');
 
-//CMS Pages
-// $cmsUrls= CmsPage::select('url')->where('status',1)->get()->pluck('url')->toArray();
-// foreach ($cmsUrls as $url){
+//CMS Pages 
+//$cmsUrls= CmsPage::select('url')->where('status',1)->get()->pluck('url')->toArray();
+//foreach ($cmsUrls as $url){
 
-//     Route::get('/'.$url, [CmsFrontController::class, 'cmsPage'])->name('cmsPage');
-// }
+    Route::get('/'.$url, [CmsFrontController::class, 'cmsPage'])->name('cmsPage');
+//}
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
