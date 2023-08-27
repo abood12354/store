@@ -81,6 +81,9 @@ Route::group(['middleware'=>['admin']],function(){
     Route::post('update-subadmin-status', [AdminController::class, 'updateSubadmin'])->name('update_subadmin_status');
     Route::match(['get','post'],'add-edit-subadmin/{id?}', [AdminController::class, 'editSubadmin'])->name('add_edit_subadmin');
     Route::get('delete-subadmin/{id?}', [AdminController::class, 'destroySubadmin'])->name('delete_subadmin');
+    Route::match(['get','post'],' update-rule-subadmin/{id}', [AdminController::class, 'updateRule'])->name('update_rule_subadmin');
+                                    
+   
 });
 
 

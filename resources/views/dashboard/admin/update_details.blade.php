@@ -1,101 +1,115 @@
 @extends('dashboard.admin.layout.layout')
 @section('content')
   
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+ <!-- Content Wrapper. Contains page content -->
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Settings</h1>
+            <h1 class="m-0">Sub Admin</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Update Details</li>
+              <li class="breadcrumb-item active">{{ $title }}</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
+      <div class="container-fluid">
+        <div class="row mb-2">
+         
+         
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="row">
-          <!-- left column -->
-          <div class="col-md-6">
-            <!-- general form elements -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Update Admin Detalis</h3>
-              </div>
-              @if ($errors->any())
 
-              @foreach ($errors->all() as $error)
-              
-              <span style="color: red;">{{ $error }}</span>
-              
-              @endforeach
-              
-              @endif
-              <!-- /.card-header -->
-            @if(Session::has('error_message'))
-            <div class="alert alert-danger alert-dissible fade show" role="alert">
-            <Strong>Error: </Strong>{{ Session::get('error_message') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            @endif
 
-            @if(Session::has('success_message'))
-            <div class="alert alert-success alert-dissible fade show" role="alert">
-            <Strong>success: </Strong>{{ Session::get('success_message') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">{{ $title }}</h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
             </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            @if ($errors->any())
+
+            @foreach ($errors->all() as $error)
+            
+            <span style="color: red;">{{ $error }}</span>
+            
+            @endforeach
+            
             @endif
-              <!-- form start -->
-              <form method="post" action="{{ url('update-details') }}">
-                @csrf
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="admin_email">Email address</label>
-                    <input  class="form-control" name="email" id="email"  value= "{{ Auth::guard('admin')->user()->email }}">
-                  </div>
-                  <div class="form-group">
-                    <label for="admin_email">Username</label>
-                    <input  class="form-control" name="username" id="username"  value= "{{ Auth::guard('admin')->user()->username }}">
-                  </div>
-                  <div class="form-group">
-                    <label for="admin_email">First Name</label>
-                    <input  class="form-control" name="firstName" id="firstName" value= "{{ Auth::guard('admin')->user()->firstName }}">
-                  </div>
-                  <div class="form-group">
-                    <label for="admin_email">Last Name</label>
-                    <input  class="form-control" name="lastName" id="lastName" value= "{{ Auth::guard('admin')->user()->lastName }}">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Current Password</label>
-                    <input type="password" class="form-control" name="current_pwd" id="current_pwd" placeholder="Current Password">
-                    <span id="verifyCurrentPwd"></span>
-                </div>
-                <!-- /.card-body -->
-               
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
-            </div>
-            <!-- /.card -->
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+                <form name="adminForm" id="adminForm" action="{{ url('update-details') }}"method="POST">
+                    @csrf
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label for="title">Username*</label>
+                        <input type="text" class="form-control" id="username" name ="username"placeholder="Enter Username" @if(!empty($adminData['username'])) value="{{$adminData['username']  }}" @endif>
+                      </div>
+                      <div class="form-group">
+                        <label for="url">First Name*</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Namel" @if(!empty($adminData['firstName'])) value="{{$adminData['firstName']  }}" @endif>
+                      </div>
+                      <div class="form-group">
+                        <label for="url">Last Name*</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last Name" @if(!empty($adminData['lastName'])) value="{{$adminData['lastName']  }}" @endif>
+                      </div> 
+                      <div class="form-group">
+                        <label for="url">Gender*</label>
+                        <input type="text" class="form-control" id="gendor" name="gendor" placeholder="Enter Gender" @if(!empty($adminData['gendor'])) value="{{$adminData['gendor']  }}" @endif>
+                      </div>
+                      <div class="form-group">
+                        <label for="url">Birthdate*</label>
+                        <input type="text" class="form-control" id="birthDate" name="birthDate" placeholder="Ex:2000-03-09" @if(!empty($adminData['birthDate'])) value="{{$adminData['birthDate']  }}" @endif>
+                      </div>
+                      <div class="form-group">
+                        <label for="url">Email*</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" @if(!empty($adminData['email'])) value="{{$adminData['email']  }}" @endif>
+                      </div>
+                      
+                      
+                     
+                    </div>
+                    <!-- /.card-body -->
+    
+                    <div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+            
+            <!-- /.row -->
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+           
+          </div>
+        </div>
+
+      
+    
+      </div>
+      <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  @endsection
+
+@endsection

@@ -12,7 +12,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
               <li class="breadcrumb-item active">Sub Admins</li>
             </ol>
           </div><!-- /.col -->
@@ -84,10 +84,13 @@
                       herf="javascript:void(0)">  <i class="fas fa-toggle-off" status="Inactive"></i></a>
                       @endif
                       &nbsp;   &nbsp;
-                      <a href="{{ url('add-edit-subadmin/'.$subadmin['id']) }}"> <i class="fas fa-edit"></i>
+                      <a href="{{ url('add-edit-subadmin/'.$subadmin['id']) }}"> <i class="fas fa-edit"></i></a>
                         &nbsp;   &nbsp;
                         <a href="{{ url('delete-subadmin/'.$subadmin['id']) }}" class="confirmDelete" name="sub admin" title="Delete Sun Admin" style="color: red"> <i class="fas fa-trash"></i>
                         </a>
+                        &nbsp;   &nbsp;
+                        <a href="{{ url('update-rule-subadmin/'.$subadmin['id']) }}"> <i class="fas fa-lock"></i></a>
+                        
                     </tr>
                     @endforeach
                    

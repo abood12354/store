@@ -7,11 +7,13 @@ use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminPasswordRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use App\Models\AdminsRule;
 use App\Models\User;
 //use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Validator;
 
 class AdminController extends Controller
@@ -137,29 +139,46 @@ class AdminController extends Controller
       
       }
       public function updateDetails(Request $request){
-
+        $title="Edit Admin";
+        $adminData = User::find(Auth::guard('admin')->user()->id);
         if($request->isMethod('post')){
-      
-          $data = $request->validate([
-            'current_pwd' => 'required',
-            'new_pwd' => 'required|string|min:8|regex:/[a-z]/|regex:/[0-9]/', 
-           // 'confirm_pwd' => 'required|same:new_pwd'
-          ]);
+       
+    
+
+          $data=$request->all();
+          
+          $rules = [
+            'username' => 'required|string|max:255',
+            'firstName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'gendor' => 'required|string|max:255',
+            'birthDate' => 'required|date',
+            'email' => 'required|email|max:255|unique:users,email,' .  Auth::guard('admin')->user()->id,
+
+          ];  
       
           
-          if(Hash::check($data['current_pwd'], Auth::guard('admin')->user()->password)){
-      
-            User::where('id',Auth::guard('admin')->user()->id)->update(['password' => bcrypt($data['new_pwd'])]);
-      
-            return redirect()->back()->with('success_message','Password updated successfully!');
-      
-          } else {
-            return redirect()->back()->with('error_message','Current password is wrong');
-          }
-      
-        }
-      
-        return view('dashboard.admin.update_details');
+  
+        //  echo "<pre>"; print_r($data);die;
+           // dd( $data);
+                $this->validate($request,$rules);
+  
+              $adminData->username=$data['username'];
+              $adminData->firstName=$data['firstName'];
+              $adminData->lastName=$data['lastName'];
+              $adminData->birthDate=$data['birthDate'];
+              $adminData->gendor=$data['gendor'];
+              $adminData->email=$data['email'];
+
+                
+                $adminData->save();
+              $message="Admin Updated Secessfully";
+                
+                
+               return redirect('dashboard')->with('success_message',$message);
+  
+      }
+      return view('dashboard.admin.update_details')->with(compact('title','adminData'));
       
       }
       
@@ -239,6 +258,9 @@ class AdminController extends Controller
     public function subadmins(){
       $subadmins=Admin::where('type','subadmin')->get()->toArray();
       $user=[];
+
+      $admin=Admin::where('user_id',Auth::guard('admin')->user()->id)->first();
+      if($admin['type']=='superadmin'){
       foreach($subadmins as $subadmin){
         $subuser = User::where('id',$subadmin['user_id'])->get()->toArray();
   
@@ -252,6 +274,10 @@ class AdminController extends Controller
       $subadmins=$user;
   
       return view('dashboard.admin.pages.subadmins' , compact('subadmins'));
+    }else{
+      $message="Only Super Admins have premission to use this feature";
+      return Redirect::back()->with('error', $message);
+    }
   
     }
 
@@ -354,5 +380,70 @@ class AdminController extends Controller
     return view('dashboard.admin.pages.add_edit_subadmin')->with(compact('title','subadminData'));
     }
 
+    public function updateRule($id,Request $request){
+      
+     $subadmin= User::where('id', $id)->first();
+      if($request->isMethod('post')){
+
+          $data=$request->all();
+        //  echo "<pre>"; print_r($data);die;
+          //delete and update rules
+         // dd($data['cms_pages']);
+          AdminsRule::where('admin_id',$id)->delete();
+        
+        
+        foreach ($data as $key => $value) {
+          if(isset($value['view'])){
+              $view= $value['view'];
+          }else{
+            $view=0;
+          }
+          if(isset($value['edit'])){
+            $edit= $value['edit'];
+            }else{
+               $edit=0;
+               }
+            if(isset($value['full'])){
+                $full= $value['full'];
+                }else{
+                $full=0;
+                }
+              }
+        /* if(isset($data['cms_pages']['view'])){
+            $cms_pages_view=$data['cms_pages']['view'];
+          }else{
+
+            $cms_pages_view=0;
+          }
+          if(isset($data['cms_pages']['edit'])){
+            $cms_pages_edit=$data['cms_pages']['edit'];
+          }else{
+
+            $cms_pages_edit=0;
+          }
+          if(isset($data['cms_pages']['full'])){
+            $cms_pages_full=$data['cms_pages']['full'];
+          }else{
+
+            $cms_pages_full=0;
+          }*/
+        $role =new AdminsRule;
+
+            $role->admin_id=$id;
+            $role->module=$key;
+            $role->view_access= $view;
+            $role->edit_access=$edit;
+            $role->full_access= $full;
+            $role->save();
+            $message="SubAdmin Roles Updated successfully for ".$subadmin['username'];
+            return redirect('subadmins')->with('success_message',$message);
+          }
+          
+          $title ="Update '" .$subadmin['username']."' Rules&Permission";
+      $subAdminRoles=AdminsRule::where('admin_id',$id)->get()->toArray();
+
+     //   dd( $subAdminRoles);
+      return view('dashboard.admin.pages.update_rule_subadmin',compact('title','id','subadmin','subAdminRoles'));
+    }
   }
   

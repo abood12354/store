@@ -3,8 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\Admin;
+use App\Models\Admin as Admin1;
+
+
+use App\Models\AdminsRule;
 use App\Models\CmsPage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class CmsContoller extends Controller
 {
@@ -15,7 +22,34 @@ class CmsContoller extends Controller
     {
         
         $cmsPages=CmsPage::get()->toArray();
-        return view('dashboard.admin.pages.cms_pages')->with(compact('cmsPages'));
+
+        //set subadmin premission for cms pages
+        $pageModule=array();
+        $cmcpagesModuleCount=AdminsRule::where(['admin_id'=>Auth::guard('admin')->user()->id,'module'=>'cms_pages'])
+        ->count();
+        $admin=Admin1::where('user_id',Auth::guard('admin')->user()->id)->first();
+        if($admin['type']=='superadmin'){
+            $pageModule['view_access']=1;
+            $pageModule['edit_access']=1;
+            $pageModule['full_access']=1;
+        }else if($cmcpagesModuleCount==0){
+            $message="You don't have premission to use this feature";
+          
+           //return back()->withInput()->with('error', $message)->route('dashboard');
+           return Redirect::back()->with('error', $message);
+        }//there's some premissions
+        else{
+
+            $pageModule=AdminsRule::where(['admin_id'=>Auth::guard('admin')->user()->id,'module'=>'cms_pages'])
+            ->first()->toArray();
+            
+
+        }
+
+
+
+
+        return view('dashboard.admin.pages.cms_pages')->with(compact('cmsPages','pageModule'));
     }
 
     /**

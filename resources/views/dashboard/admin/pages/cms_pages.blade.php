@@ -12,7 +12,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
               <li class="breadcrumb-item active">CMS Pages</li>
             </ol>
           </div><!-- /.col -->
@@ -41,13 +41,14 @@
                 </button>
                 </div>
                 @endif
-  
+                @if($pageModule['full_access']==1)
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">CMS Table</h3>
                   <a style="max-width: 150px; float: right;display:inline-block" href="{{ url('add-edit-cms-page') }}" 
                   class="btn btn-block btn-primary"> Add CMS Page</a>
                 </div>
+                @endif
                 <!-- /.card-header -->
                 <div class="card-body">
                   <table id="cmspages" class="table table-bordered table-striped">
@@ -69,21 +70,27 @@
                       <td maxlength="10">{{ $page['title'] }}</td>
                       <td maxlength="10">{{ $page['url'] }}</td>
                       <td>{{date("F j, Y, g:i a", strtotime( $page['created_at'])); }}</td>
-                      <td>
+                      <td>    
+
+                        @if($pageModule['edit_access']==1||$pageModule['full_access']==1)
                         
                           @if($page['status']==1)
-                          <a class="updateCmsPageStatus" id="page_{{ $page['id'] }}" page_id="{{ $page['id'] }}"
-                          herf="javascript:void(0)">  <i class="fas fa-toggle-on" style="color: rgb(0, 115, 255)" status="Active"></i></a>
+                               <a class="updateCmsPageStatus" id="page_{{ $page['id'] }}" page_id="{{ $page['id'] }}"
+                               herf="javascript:void(0)">  <i class="fas fa-toggle-on" style="color: rgb(0, 115, 255)" status="Active"></i></a>
                           @else
-                          <a class="updateCmsPageStatus" id="page_{{ $page['id'] }}" style="color: gray" page_id="{{ $page['id'] }}"
-                          herf="javascript:void(0)">  <i class="fas fa-toggle-off" status="Inactive"></i></a>
+                              <a class="updateCmsPageStatus" id="page_{{ $page['id'] }}" style="color: gray" page_id="{{ $page['id'] }}"
+                              herf="javascript:void(0)">  <i class="fas fa-toggle-off" status="Inactive"></i></a>
                           @endif
                           &nbsp;   &nbsp;
-                          <a href="{{ url('add-edit-cms-page/'.$page['id']) }}"> <i class="fas fa-edit"></i>
-                            &nbsp;   &nbsp;
-                            <a href="{{ url('delete-cms-page/'.$page['id']) }}" class="confirmDelete" name="CMS Page" title="Delete CMS Page" style="color: red"> <i class="fas fa-trash"></i>
+                          @endif
+                          @if($pageModule['edit_access']==1||$pageModule['full_access']==1)
+                              <a href="{{ url('add-edit-cms-page/'.$page['id']) }}"> <i class="fas fa-edit"></i>
+                                &nbsp;   &nbsp;
+                          @endif
+                          @if($pageModule['full_access']==1)
+                              <a href="{{ url('delete-cms-page/'.$page['id']) }}" class="confirmDelete" name="CMS Page" title="Delete CMS Page" style="color: red"> <i class="fas fa-trash"></i>
                           
-
+                          @endif
                     </td>
                     </tr>
                     @endforeach
