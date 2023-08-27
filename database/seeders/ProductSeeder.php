@@ -27,7 +27,7 @@ class ProductSeeder extends Seeder
             'sell'=>30,
         ]);
 
-        $imagePath = public_path('assets/images/product-1/product-1.jpg');
+        $imagePath = public_path('assets/images/product-1/product-2.jpg');
         $product1->addMedia($imagePath)
     ->toMediaCollection();
 
