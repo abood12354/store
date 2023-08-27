@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(Product::class)->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(Comment::class,'replay_id')->nullable()->constrained('comments')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->text('body');
             $table->timestamps();
         });
     }

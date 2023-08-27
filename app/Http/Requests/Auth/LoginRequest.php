@@ -27,7 +27,13 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'email' => ['required', 'email', function($attribute, $value, $fail) {
+                if(isGmail($value)) {
+                  return "nice email";
+                }else{
+                  return  $fail('Email cannot end in @email');
+                }
+              }],
             'password' => ['required', 'string'],
         ];
     }

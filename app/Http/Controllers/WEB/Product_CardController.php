@@ -18,11 +18,11 @@ class Product_CardController extends Controller
     //     $product_card_1=new Product_Card_1;
     // }
 
-    public function index()
-    {
-        $products = Product::take(6)->get();
-        //$products=$this->product_card_1->get_all_product();
-        return view('Sections.Index.Product-Style-part-one' , compact('products'));
-    }
+    // public function index()
+    // {
+    //     $products = Product::take(6)->get();
+    //     //$products=$this->product_card_1->get_all_product();
+    //     return view('Sections.Index.product-details-page' , compact('products'));
+    // }
 
 }

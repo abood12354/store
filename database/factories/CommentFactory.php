@@ -21,6 +21,7 @@ class CommentFactory extends Factory
         return [
             'product_id' =>Product::inRandomOrder()->first()?->id,
             //'replay_id' =>Comment::inRandomOrder()->first()?->id,
+            'body' => $this->faker->text(),
         ];
     }
 }

@@ -222,6 +222,20 @@ i span{
             <x-text-input id="birthDate"  type="date" name="birthDate" :value="old('birthDate')" required autofocus autocomplete="birthDate" />
             <!-- <x-input-error :messages="$errors->get('birthDate')"  /> -->
           </div>
+          <span class="fa fa-user spany">phone number</span>
+          <div class="field ">
+          <span class="fa fa-user"></span>
+            <x-input-label for="phoneNumber"  />
+            <x-text-input id="phoneNumber"  type="text" name="phoneNumber" :value="old('phoneNumber')" required autofocus autocomplete="name" />
+            <!-- <x-input-error :messages="$errors->get('gendor')"  /> -->
+          </div>
+          <span class="fa fa-user spany">address </span>
+          <div class="field ">
+          <span class="fa fa-user"></span>
+            <x-input-label for="address"  />
+            <x-text-input id="address"  type="text" name="address" :value="old('phoneNumber')" required autofocus autocomplete="name" />
+            <!-- <x-input-error :messages="$errors->get('gendor')"  /> -->
+          </div>
           <span class="fa fa-user spany">email</span>
           <div class="field ">
           <span class="fa fa-user"></span>
