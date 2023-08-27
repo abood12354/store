@@ -22,7 +22,7 @@ class Product_CardController extends Controller
     {
         $products = Product::take(6)->get();
         //$products=$this->product_card_1->get_all_product();
-        return view('Sections.Index.Product-Style-part-one' , compact('products'));
+        return view('Sections.Index.product-details-page' , compact('products'));
     }
 
 }

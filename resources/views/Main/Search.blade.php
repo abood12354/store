@@ -1,4 +1,4 @@
-                    <form action="{{route('Post_Search')}}" method="POST">
+                    <form action="{{route('Post_Search')}}" method="post">
                         @csrf
                     <div class="navbar-search search-style-5">
                                     <div class="search-select">
@@ -12,7 +12,8 @@
                                         </select>
                                     </div>
                                     <div class="search-input">
-                                        <input type="text" placeholder="Search" placeholder="Search...." name="search">
+                                    <!-- value="{{ request()->input('search') }}" -->
+                                        <input type="text"  placeholder="Search Of Name Product...." name="search" value="{{isset($search) ? $search:''}}" >
                                     </div>
                                     <div class="search-btn">
                                         <button><i class="lni lni-search-alt"></i></button>

@@ -32,6 +32,7 @@
               <div class="card-header">
                 <h3 class="card-title">Update Admin Password</h3>
               </div>
+
               @if ($errors->any())
 
               @foreach ($errors->all() as $error)
@@ -73,16 +74,19 @@
                     <label for="exampleInputPassword1">Current Password</label>
                     <input type="password" class="form-control" name="current_pwd" id="current_pwd" placeholder="Current Password">
                     <span id="verifyCurrentPwd"></span>
+
                 </div>
                 <!-- /.card-body -->
                 <div class="form-group">
                   <label for="exampleInputPassword1">New Password</label>
+
                   <input type="password" class="form-control" name="new_pwd" id="new" placeholder="New Password">
 
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Confirm New Password</label>
                 <input type="password" class="form-control" name="confirm_pwd" id="confirm_pwd" placeholder="Confirm Password">
+
 
             </div>
                 <div class="card-footer">
