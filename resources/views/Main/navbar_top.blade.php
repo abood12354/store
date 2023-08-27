@@ -8,6 +8,9 @@
                                 <ul class="navbar-top-link">
                                     <li><a href="about-page.html">About</a></li>
                                     <li><a href="contact-page.html">Contact</a></li>
+                                    @auth
+                                    <li><a href="{{route('show_profile',Auth::user()->id)}}">Profile</a></li>
+                                    @endauth
                                     <li>
                                         <a href="javascript:void(0)">
                                             <i class="mdi mdi-phone-in-talk"></i>

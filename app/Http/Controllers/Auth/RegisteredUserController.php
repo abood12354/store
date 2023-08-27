@@ -40,7 +40,14 @@ class RegisteredUserController extends Controller
             'birthDate'=> ['required', 'date'],
             'phoneNumber'=>['required','string', 'max:11'],
             'address'=>['required','string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class
+            , function($attribute, $value, $fail) {
+                if(isGmail($value)) {
+                  return "nice email";
+                }else{
+                  return  $fail('Email cannot end in @email');
+                }
+              }],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 

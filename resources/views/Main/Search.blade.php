@@ -16,7 +16,7 @@
                                         <input type="text"  placeholder="Search Of Name Product...." name="search" value="{{isset($search) ? $search:''}}" >
                                     </div>
                                     <div class="search-btn">
-                                        <button><i class="lni lni-search-alt"></i></button>
+                                        <button type="submit"><i class="lni lni-search-alt"></i></button>
                                     </div>
                                 </div>
                                 </form>

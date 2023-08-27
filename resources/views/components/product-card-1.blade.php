@@ -1,18 +1,28 @@
-       <div class="col-lg-4 col-sm-6">
+
+@section('style')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@endsection
+<div class="col-lg-4 col-sm-6">
                     <div class="product-style-1 mt-30">
-                        <div class="product-image">
+                        <div class="product-image" id="div_1">
                         <span class="icon-text text-style-1">{{$product->status}}</span>
                             <div class="product-active">
                                 <div class="product-item active">
-                                    <img src="{{asset('assets/images/product-1/product-9.jpg')}}" alt="product">
+                                
+                             <img src="{{ storage_path('app/public/' . $product->getFirstMedia()) }}"> 
+
                                 </div>
                                 <div class="product-item">
-                                    <img src="{{asset('assets/images/product-1/product-10.jpg')}}" alt="product">
+                                    <img src="{{$product->getFirstMediaUrl('images') }}" alt="product">
                                 </div>
                             </div>
-                            <a class="add-wishlist" href="javascript:void(0)">
+                            <form  method="post" action="{{route('favorite_product',$product->id)}}" id="add_favorite">
+                                @csrf
+                            <button class="add-wishlist">
                                 <i class="mdi mdi-heart-outline"></i>
-                            </a>
+                            </button>
+                            </form>  
+                            
                         </div>
                         <div class="product-content text-center">
                             <h4 class="title"><a href="{{route('product_page',$product->id)}}">{{$product->name}}</a></h4>
@@ -35,4 +45,24 @@
                         </div>
                     </div>
                 </div>
-   
+   <script>
+    $(document).ready(function () {
+
+        $('#add_favorite').on('submit',function(event){
+
+            event.preventDefault();
+            jQuery.ajax({
+                route:"{{route('favorite_product',$product->id)}}",
+                data:jQuery('#add_favorite').serialize(),
+                type:'post',
+                success:function(result)
+                {
+                $('#div_1').css('display','block');
+                jQuery('#div_1').html(result.message);
+                jQuery('#add_favorite')[0].reset();
+                }
+            });
+
+        });
+      });
+   </script>

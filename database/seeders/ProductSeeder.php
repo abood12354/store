@@ -18,7 +18,18 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        Product::factory()->count(10)->create();
+        $product1=Product::create([
+            'status'=>"New",
+            'name'=>"Noms Watsh",
+            'price'=>1000,
+            'quantity'=>2,
+            'Assess'=>4,
+            'sell'=>30,
+        ]);
+
+        $imagePath = public_path('assets/images/product-1/product-1.jpg');
+        $product1->addMedia($imagePath)
+    ->toMediaCollection();
 
         $products = Product::all();
 foreach ($products as $product) {
@@ -43,6 +54,19 @@ foreach ($products as $product) {
         'subcategories_id'=>Subcategory::inRandomOrder()->first()?->id,
     ]);
 }
+
+// foreach (Product::all() as $product) {
+//     // // $url = 'https://picsum.photos/200/300';
+//     // $url='/assets/images/product-1/product-2.jpg';
+//     // //$path='C:\product-1\product-2.jpg';
+//     // // $product->addMediaFromUrl($url)
+//     // // ->usingName("awddada")
+//     // // ->toMediaCollection();
+
+//     $imagePath = public_path('assets/images/product-1/');
+//     $product->addMedia($imagePath)
+//     ->toMediaCollection('images');
+// }
 
 // $products = Product::all();
 // foreach ($products as $product) {

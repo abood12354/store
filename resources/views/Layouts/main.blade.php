@@ -34,6 +34,7 @@
 
     <!--====== Style CSS ======-->
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    
     @yield('style')
 </head>
 <body>
@@ -94,6 +95,7 @@
 
     <!--====== Main js ======-->
     <script src="{{asset('assets/js/main.js')}}"></script>
+
 @yield('script')
 <!-- {{ asset('assets/css/nouislider.css') }} -->
 </body>

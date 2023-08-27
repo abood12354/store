@@ -25,7 +25,7 @@
                             <!-- navbar cart start -->
                             <div class="navbar-cart">
                                 <a class="icon-btn primary-icon-text icon-text-btn" href="javascript:void(0)">
-                                    <img src="assets/images/icon-svg/cart-1.svg" alt="Icon">
+                                    <img src="{{asset('assets/images/icon-svg/cart-1.svg')}}" alt="Icon">
                                     <span class="icon-text text-style-1">88</span>
                                 </a>
     
@@ -367,7 +367,7 @@
                                                                     </div>
                                                                     <div class="product-content media-body">
                                                                         <h5 class="title">
-                                                                            <a href="product-details-page.html">Hollow Port</a>
+                                                                            <a href="{{route('product_page',$id)}}">{{$details['name']}}</a>
                                                                         </h5>
                                                                         <ul>
                                                                             <li><span>Brown</span></li>

@@ -16,12 +16,12 @@ return new class extends Migration
     {
         Schema::create('favorite', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Client::class)->constrained();
-            $table->foreignIdFor(Product::class)->constrained();
+            $table->foreignId('client_id')->references('id')->on('clients')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->morphs('favoritable');
             $table->timestamps();
         });
     }
-
+    // nullable
     /**
      * Reverse the migrations.
      */

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ProductPageController extends Controller
 {
-    public function index(string $id){
+    public function index1(string $id){
         $product=Product::findorFail($id);
         return view('Page.product-details-page',compact('product'));
     }

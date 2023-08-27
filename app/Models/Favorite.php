@@ -10,6 +10,14 @@ class Favorite extends Model
     use HasFactory;
 
 
+    protected $fillable = [
+        'client_id',
+        'favoritable_id',
+        'favoritable_type',
+    ];
+
+    protected $table="favorite";
+
     public function favoritable(){
        
         return $this->morphTo('favoritable');

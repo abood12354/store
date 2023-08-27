@@ -3,6 +3,10 @@
 @section('style')
 
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
 @endsection
 
 @section('content')
@@ -87,8 +91,8 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="product-details-content mt-45">
-                            <p class="sub-title">{{$product->subcategories_id}}</p>
-                            <h2 class="title">{{$product->name}}</h2>
+                            <p class="sub-title">{{$product?->subcategories_id}}</p>
+                            <h2 class="title">{{$product?->name}}</h2>
     
                             <div class="product-items flex-wrap">
                                 <h6 class="item-title">Select Your Oculus: </h6>
@@ -181,8 +185,10 @@
         </div>
     </section>
     <!--====== Product Details Style 1 Part Ends ======-->
-
     <!--====== Reviews Part Start ======-->
+   
+
+
     <section class="reviews-wrapper pt-100 pb-100 ">
         <div class="container">
             <div class="reviews-style">
@@ -296,12 +302,14 @@
                                             <li class="star" data-value='5'><i class="mdi mdi-star"></i></li>
                                         </ul>
                                     </div>
-                                    <div class="rating-form">
-                                        <form action="#">
+                                    <div id="div_add_comment" class="rating-form">
+                                        <form action="{{route('add_review')}}" id="add_comment" method="post">
+                                            @csrf
                                             <div class="single-form form-default">
                                                 <label>Write your Review</label>
                                                 <div class="form-input">
-                                                    <textarea placeholder="Your review here"></textarea>
+                                                    <input type="hidden" id="idd" value="{{$product->id}}" />
+                                                    <textarea placeholder="Your review here" name="body"></textarea>
                                                     <i class="mdi mdi-message-text-outline"></i>
                                                 </div>
                                             </div>
@@ -522,57 +530,17 @@
             </div>
         </div>
     </section>
-    <!--====== Reviews Part Ends ======-->
 
+
+    <!--====== Reviews Part Ends ======-->
         <!--====== Subscribe Part Start ======-->
-    <section class="subscribe-section pt-70 pb-70 bg-primary-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-9 mx-auto">
-                    <div class="heading text-center">
-                        <h1 class="heading-1 font-weight-700 text-white mb-10">You are using free lite version</h1>
-                        <p class="gray-3">Please, purchase full version of the template to get all pages, sections, features and permission to remove footer credits.</p>
-                        </br>
-                        <a href="https://rebrand.ly/estore-gg" rel="nofollow" target="_blank" class="main-btn secondary-1-btn">
-                                <img src="assets/images/icon-svg/cart-7.svg" alt="">
-                                PURCHASE NOW
-                            </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        @include('Sections.Index.subscribe-part')
     <!--====== Subscribe Part Ends ======-->
 
     <!--====== Clients Logo Part Start ======-->
-    <section class="clients-logo-section pt-70 pb-70">
-        <div class="container">
-            <div class="row client-logo-active">
-                <div class="col-lg-3">
-                    <div class="single-logo-wrapper">
-                        <img src="assets/images/client-logo/uideck-logo.svg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="single-logo-wrapper">
-                        <img src="assets/images/client-logo/graygrids-logo.svg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="single-logo-wrapper">
-                        <img src="assets/images/client-logo/lineicons-logo.svg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="single-logo-wrapper">
-                        <img src="assets/images/client-logo/pagebulb-logo.svg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--====== Clients Logo Part Ends ======-->
 
+    <!--====== Clients Logo Part Ends ======-->
+    @include('Sections.Index.client-logo-part')
     <!--====== Subscribe Part Start ======-->
     <section class="subscribe-section pt-70 pb-70 bg-primary-4">
         <div class="container">
@@ -602,99 +570,42 @@
     <!--====== Subscribe Part Ends ======-->
 
     <!--====== Footer Style 3 Part Start ======-->
-    <section class="footer-style-3 pt-100 pb-100">
-        <div class="container">
-            <div class="footer-top">
-                <div class="row justify-content-center">
-                    <div class="col-lg-5 col-md-7 col-sm-10">
-                        <div class="footer-logo text-center">
-                            <a href="index.html">
-                                <img src="assets/images/logo.svg" alt="">
-                            </a>
-                        </div>
-                        <h5 class="heading-5 text-center mt-30">Follow Us</h5>
-                        <ul class="footer-follow text-center">
-                            <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="lni lni-twitter-filled"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="lni lni-instagram-original"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="lni lni-whatsapp"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="footer-widget-wrapper text-center pt-20">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div class="footer-widget">
-                            <h5 class="footer-title">PRODUCT</h5>
-    
-                            <ul class="footer-link">
-                                <li><a href="javascript:void(0)">Quest</a></li>
-                                <li><a href="javascript:void(0)">Rift S</a></li>
-                                <li><a href="javascript:void(0)">Gear VR</a></li>
-                                <li><a href="javascript:void(0)">Apps and Games</a></li>
-                                <li><a href="javascript:void(0)">Apps and Games</a></li>
-                                <li><a href="javascript:void(0)">Oculus for Business</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div class="footer-widget">
-                            <h5 class="footer-title">DEVELOPERS</h5>
-    
-                            <ul class="footer-link">
-                                <li><a href="javascript:void(0)">Developer Centre</a></li>
-                                <li><a href="javascript:void(0)">Docs</a></li>
-                                <li><a href="javascript:void(0)">Downloads</a></li>
-                                <li><a href="javascript:void(0)">Tools</a></li>
-                                <li><a href="javascript:void(0)">Developer Blog</a></li>
-                                <li><a href="javascript:void(0)">Developer Forums</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div class="footer-widget">
-                            <h5 class="footer-title">PRODUCT</h5>
-    
-                            <ul class="footer-link">
-                                <li><a href="javascript:void(0)">Blog</a></li>
-                                <li><a href="javascript:void(0)">Careers</a></li>
-                                <li><a href="javascript:void(0)">Brand Centre</a></li>
-                                <li><a href="javascript:void(0)">Connect</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div class="footer-widget">
-                            <h5 class="footer-title">PRODUCT</h5>
-    
-                            <ul class="footer-link">
-                                <li><a href="javascript:void(0)">VR for Good</a></li>
-                                <li><a href="javascript:void(0)">Launch Pad</a></li>
-                                <li><a href="javascript:void(0)">Creators Lab</a></li>
-                                <li><a href="javascript:void(0)">Forums</a></li>
-                                <li><a href="javascript:void(0)">Support</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="footer-copyright text-center">
-                <p>Developed by <a href="https://graygrids.com/" rel="nofollow" target="_blank">GrayGrids</a>. Basesd on <a href="https://ecommercehtml.com/" rel="nofollow" target="_blank">eCommerceHTML</a>
-                </p>
-            </div>
-        </div>
-    </section>
+    @include('Sections.Index.footer-style-3')
     <!--====== Footer Style 3 Part Ends ======-->
 
-    @endsection
-
-    @section('script')
 
 
- 
-    @endsection
+
+
+
+
+<script>
+$(document).ready(function () {
+
+    $('#add_comment').on('submit',function(event){
+
+        event.preventDefault();
+        jQuery.ajax({
+            route:"{{route('add_review')}}",
+            data:jQuery('#add_comment').serialize(),
+            type:'post',
+            success:function(result)
+            {
+            $('#div_add_comment').css('display','block');
+            jQuery('#div_add_comment').html(result.message);
+            jQuery('#add_comment')[0].reset();
+            }
+        });
+
+    });
+  });
+</script>
+
+
+
+
+
+
+@endsection
+
 
