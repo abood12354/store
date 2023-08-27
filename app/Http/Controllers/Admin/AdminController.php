@@ -74,12 +74,12 @@ class AdminController extends Controller
 
                  return redirect("dashboard");
              } else {
-                return redirect()->back()->withErrors(['email' => 'not an admin']);
+                return redirect("dashboard")->back()->withErrors(['email' => 'not an admin']);
              }
            
             
             }else{
-                return redirect()->back()->withErrors(['email' => 'Invalid email or password']);
+                return redirect("dashboard")->back()->withErrors(['email' => 'Invalid email or password']);
               }
 
         }

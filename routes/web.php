@@ -139,8 +139,7 @@ Route::group(['middleware'=>['admin']],function(){
 });
 
 
-Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
-->name('dashboard');
+
 
 
 
