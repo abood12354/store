@@ -46,7 +46,7 @@ Route::get('/index', [IndexController::class,'index'])
 //$cmsUrls= CmsPage::select('url')->where('status',1)->get()->pluck('url')->toArray();
 //foreach ($cmsUrls as $url){
 
-    Route::get('/'.$url, [CmsFrontController::class, 'cmsPage'])->name('cmsPage');
+   // Route::get('/'.$url, [CmsFrontController::class, 'cmsPage'])->name('cmsPage');
 //}
 
 // Route::get('/dashboard', function () {
