@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CmsContoller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WEB\IndexController;
 use App\Http\Controllers\WEB\LoginController;
@@ -8,9 +9,15 @@ use App\Http\Controllers\WEB\Product_CardController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\WEB\CartController;
 use App\Http\Controllers\WEB\ProductPageController;
 use App\Http\Controllers\WEB\ReviewController;
+
+use App\Http\Controllers\CmsFrontController;
+use App\Http\Middleware\Admin;
+use App\Models\CmsPage;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +42,12 @@ Route::get('/index', [IndexController::class,'index'])
 // Route::get('login/form', [LoginController::class, 'index'])
 // ->name('login-form-2');
 
+//CMS Pages
+$cmsUrls= CmsPage::select('url')->where('status',1)->get()->pluck('url')->toArray();
+foreach ($cmsUrls as $url){
+
+    Route::get('/'.$url, [CmsFrontController::class, 'cmsPage'])->name('cmsPage');
+}
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -89,33 +102,46 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-// <<<<<<< HEAD
-// <<<<<<< HEAD
-// =======
 
-// >>>>>>> 54d6b352f4f9b0e782d776fce1a9e6888a437762
+
+
 Route::get('/master', function () {
     // welcome
     return view('Sections.Index.haaaaaaaa');
 })->middleware('auth')->name('dashboard1');
-// <<<<<<< HEAD
-// =======
 
-// Route::get('/master', function () {
-//     return view('welcome');
-// })->middleware('auth')->name('dashboard1');
-// =======
-// >>>>>>> 54d6b352f4f9b0e782d776fce1a9e6888a437762
 
+
+Route::match(['get', 'post'], 'adminlogin', [AdminController::class, 'login'])
+   ->name('adminlogin');
+
+Route::group(['middleware'=>['admin']],function(){
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::match(['get','post'],'update-password', [AdminController::class, 'updatePassword'])->name('update_password');
+    Route::match(['get','post'],'update-details', [AdminController::class, 'updateDetails'])->name('update_details');
+    Route::post('check-current-password', [AdminController::class, 'checkPassword'])->name('check_current_password');
+    Route::get('logout', [AdminController::class, 'logout'])->name('logout');
+
+ //cms
+    Route::get('cms-pages', [CmsContoller::class, 'index'])->name('cms');
+    Route::post('update-cms-pages-status', [CmsContoller::class, 'update'])->name('update_cms_pages_status');
+    Route::match(['get','post'],'add-edit-cms-page/{id?}', [CmsContoller::class, 'edit'])->name('add_edit_cms_page');
+    Route::get('delete-cms-page/{id?}', [CmsContoller::class, 'destroy'])->name('delete_cms');
+
+  //subadmins
+    Route::get('subadmins', [AdminController::class, 'subadmins'])->name('subadmins');
+    Route::post('update-subadmin-status', [AdminController::class, 'updateSubadmin'])->name('update_subadmin_status');
+    Route::match(['get','post'],'add-edit-subadmin/{id?}', [AdminController::class, 'editSubadmin'])->name('add_edit_subadmin');
+    Route::get('delete-subadmin/{id?}', [AdminController::class, 'destroySubadmin'])->name('delete_subadmin');
+    Route::match(['get','post'],' update-rule-subadmin/{id}', [AdminController::class, 'updateRule'])->name('update_rule_subadmin');
+                                    
+   
+});
 
 
 Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
 ->name('dashboard');
-// <<<<<<< HEAD
-// >>>>>>> be63818a07765556cf2eb31df43768e59908bd2a
-// =======
 
-// >>>>>>> 54d6b352f4f9b0e782d776fce1a9e6888a437762
 
 
 
@@ -164,5 +190,6 @@ Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
 //       <p>Rating: {{ $review->rating }}</p>
 //     </div>
 //   @endforeach
+
 
 // @endsection

@@ -39,15 +39,16 @@
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6">
                         <div class="footer-widget">
-                            <h5 class="footer-title">DEVELOPERS</h5>
-    
+                           
+                            <h5 class="footer-title">ADDED BY THE ADMINS</h5>
+                           
+  
+
                             <ul class="footer-link">
-                                <li><a href="javascript:void(0)">Developer Centre</a></li>
-                                <li><a href="javascript:void(0)">Docs</a></li>
-                                <li><a href="javascript:void(0)">Downloads</a></li>
-                                <li><a href="javascript:void(0)">Tools</a></li>
-                                <li><a href="javascript:void(0)">Developer Blog</a></li>
-                                <li><a href="javascript:void(0)">Developer Forums</a></li>
+                                @foreach ($cmsPages as $page )
+
+                                <li><a href="{{ url('/'.$page['url']) }}"> {{ $page['title'] }} </a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
