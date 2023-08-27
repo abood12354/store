@@ -51,6 +51,68 @@ public function run()
   $admin->user()->associate($user);
 
   $admin->save();
+  User::where('email','foxasdf8@gmail.com')
+->update([
+     'userable_type' => Admin::class,
+       'userable_id' => $admin->id
+ ]);
+
+
+
+//sub admin
+$admin2 = new Admin([
+   'type' => 'subadmin',
+   'status' => 1
+]);
+$user2 = User::create([
+'username' => 'wolf',
+'firstName' => 'ahmad',
+'lastName' => 'alkaboni',
+'email' => 'wolf8@gmail.com',
+'gendor'=>'male',
+'password' => bcrypt('password'),
+'birthDate' => '2001-04-19',
+'userable_type' => $admin::class, 
+'userable_id' => $admin->id,
+]);
+$admin2->user()->associate($user2);
+
+$admin2->save();
+User::where('email','wolf8@gmail.com')
+->update([
+     'userable_type' => Admin::class,
+       'userable_id' => $admin2->id
+ ]);
+
+
+
+
+
+$admin3 = new Admin([
+   'type' => 'subadmin',
+   'status' => 1
+]);
+$user3 = User::create([
+   'username' => 'sarah13',
+   'firstName' => 'sarah',
+   'lastName' => 'khlood',
+   'email' => 'sarah13@gmail.com',
+   'gendor'=>'female',
+   'password' => bcrypt('password'),
+   'birthDate' => '1998-11-10',
+   'userable_type' => $admin::class, 
+   'userable_id' => $admin->id,
+   ]);
+   $admin3->user()->associate($user3);
+   
+   $admin3->save();
+User::where('email','sarah13@gmail.com')
+->update([
+     'userable_type' => Admin::class,
+       'userable_id' => $admin3->id
+ ]);
+
+
 
 }
 

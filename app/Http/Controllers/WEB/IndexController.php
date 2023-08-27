@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\WEB;
 
 use App\Http\Controllers\Controller;
+use App\Models\CmsPage;
 use App\Models\Product;
 use App\Models\User;
 use App\View\Components\product as ComponentsProduct;
@@ -12,9 +13,10 @@ class IndexController extends Controller
 {
 
     public function index()
-    {
+    {   
+        $cmsPages= CmsPage::where('status',1)->get()->toArray();
         $products = Product::take(6)->get();
-        return view('Page.index' , compact('products'));
+        return view('Page.index' , compact('products'),compact('cmsPages'));
     }
 
 
