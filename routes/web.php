@@ -15,9 +15,10 @@ use App\Http\Controllers\WEB\ProductPageController;
 use App\Http\Controllers\WEB\ReviewController;
 
 use App\Http\Controllers\CmsFrontController;
+use App\Http\Controllers\ProductController;
 use App\Http\Middleware\Admin;
 use App\Models\CmsPage;
-
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,12 +115,16 @@ Route::group(['middleware'=>['admin']],function(){
     Route::post('check-current-password', [AdminController::class, 'checkPassword'])->name('check_current_password');
     Route::get('logout', [AdminController::class, 'logout'])->name('logout');
 
+
+
  //cms
     Route::get('cms-pages', [CmsContoller::class, 'index'])->name('cms');
     Route::post('update-cms-pages-status', [CmsContoller::class, 'update'])->name('update_cms_pages_status');
     Route::match(['get','post'],'add-edit-cms-page/{id?}', [CmsContoller::class, 'edit'])->name('add_edit_cms_page');
     Route::get('delete-cms-page/{id?}', [CmsContoller::class, 'destroy'])->name('delete_cms');
 
+
+    
   //subadmins
     Route::get('subadmins', [AdminController::class, 'subadmins'])->name('subadmins');
     Route::post('update-subadmin-status', [AdminController::class, 'updateSubadmin'])->name('update_subadmin_status');
@@ -133,6 +138,10 @@ Route::group(['middleware'=>['admin']],function(){
     Route::post('update-category-status', [CategoryController::class, 'update'])->name('update_category_status');
     Route::match(['get','post'],'add-edit-category/{id?}', [CategoryController::class, 'edit'])->name('add_edit_category');
     Route::get('delete-category/{id}', [CategoryController::class, 'destroy'])->name('delete_category');
+    //
+    Route::get('products', [ProductController::class, 'index'])->name('products');
+    Route::get('delete-product/{id}', [ProductController::class, 'destroy'])->name('delete_product');
+    Route::match(['get','post'],'add-edit-product/{id?}', [ProductController::class, 'edit'])->name('product');
 
 });
 

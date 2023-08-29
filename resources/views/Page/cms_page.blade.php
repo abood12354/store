@@ -33,8 +33,8 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="welcome-img">
-						<img src="{{asset('assets/images/images/about/about-img.png')}}" alt="" class="image">
-						<img src="{{asset('assets/images/images/about/dot-shape.svg')}}" alt="" class="dot-shape">
+						<img src="{{asset('assets/images/about/about-img.jpg')}}" alt="" class="image">
+						<img src="{{asset('assets/images/about/dot-shape.svg')}}" alt="" class="dot-shape">
 					</div>
 				</div>
 

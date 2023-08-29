@@ -23,11 +23,11 @@ class ProductSeeder extends Seeder
             'name'=>"Noms Watsh",
             'price'=>1000,
             'quantity'=>2,
-            'Assess'=>4,
+         //   'Assess'=>4,
             'sell'=>30,
         ]);
 
-        $imagePath = public_path('assets\images\product-1\product-12.jpg');
+        $imagePath = public_path('assets\images\product-1\product-10.jpg');
         $product1->addMedia($imagePath)
     ->toMediaCollection();
 

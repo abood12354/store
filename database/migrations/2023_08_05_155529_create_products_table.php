@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('name');
             $table->float('price');
             $table->integer('quantity');
-            $table->integer('Assess');
+         //   $table->integer('Assess');
             $table->decimal('sell',9,2);
             $table->timestamps();
         });

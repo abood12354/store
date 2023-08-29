@@ -46,7 +46,8 @@ class IndexController extends Controller
         $search = request()->search;
         $product = Product::where("name", '='  , $search )->first();
         $getCategories=Category::getCategories();
-    return view('Page.product-details-page',compact('product','search','getCategories'));
+        $cmsPages= CmsPage::where('status',1)->get()->toArray();
+    return view('Page.product-details-page',compact('product','search','getCategories','cmsPages'));
     }
 
     public function showProfile(string $id){
