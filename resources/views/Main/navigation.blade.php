@@ -354,20 +354,31 @@
                                                             <td class="checkout-product">
                                                                 <div class="product-cart d-flex">
                                                                     <div class="product-thumb">
-                                                                        <img src="{{asset('assets/images/product-cart/product-1.png')}}"
+                                                                 
+                                                                            <img src=""
                                                                             alt="Product">
+                                                                            
                                                                     </div>
-                                                                    <div class="product-content media-body">
+                                                                    <div id="" class="product-content media-body">
                                                                         <h5 class="title">
                                                                             <a href="{{route('product_page',$id)}}">{{$details['name']}}</a>
                                                                         </h5>
                                                                         <ul>
-                                                                            <li><span>Brown</span></li>
-                                                                            <li><span>XL</span></li>
+                                                                            <!-- <li><span>Brown</span></li>
+                                                                            <li><span>XL</span></li> -->
                                                                             <li>
-                                                                                <a class="delete" href="javascript:void(0)">
+                                                                            <div id="div_remove_cart">
+                                                                                <!-- <a class="delete" href="javascript:void(0)"> -->
+                                                                                    <form id="remove_from_cart" action="{{route('remove_from_cart',$id)}}" method="POST" class="delete">
+                                                                                    @csrf
+                                                                                    <button type="submit">
                                                                                     <i class="mdi mdi-delete"></i>
-                                                                                </a>
+                                                                                    </button>
+                                                                                    <!-- </a> -->
+                                                                                </form>
+                                                                            </div>
+
+
                                                                             </li>
                                                                         </ul>
                                                                     </div>
@@ -378,8 +389,6 @@
                                                         <td class="checkout-price">
                                                                 <p class="price">total price = {{$total}}</p>
                                                             </td>
-
-
                                                     </tbody>
                                                 </table>
                                             </div>

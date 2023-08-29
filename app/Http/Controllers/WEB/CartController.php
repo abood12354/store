@@ -34,10 +34,27 @@ class CartController extends Controller
              ];
       }
         session()->put('cart', $cart);
-        return response()->json(['div_add_cart'=>'add cart successfuly']);
-      //   return redirect()->back()->with('success', 'Product added to cart successfully!');
+      //   return response()->json(['div_add_cart'=>'add cart successfuly']);
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
       }
       else return alert("the product is empty");
+   }
+
+
+
+   public function remove_from_cart(string $id){
+      $cart = session()->get('cart', []);
+
+if (isset($cart[$id])) {
+    unset($cart[$id]);
+    session()->put('cart', $cart);
+   //  return response()->json(['div_remove_cart' => 'Item removed from cart successfully']);
+   return redirect()->back()->with('success', 'Product added to cart successfully!');
+
+} else {
+    return response()->json(['div_remove_cart' => 'Item not found in cart']);
+}
+      
    }
 
 
@@ -45,6 +62,7 @@ class CartController extends Controller
 $product=Product::findOrFail($id);
     if(Auth::user()){
        $user=Auth::user()->userable_id;
+       
        $favorite = Favorite::create([
         'client_id' => $user,
         'favoritable_type' => Product::class,
@@ -60,6 +78,7 @@ $product=Product::findOrFail($id);
 
    public function buy(string $id){
       $product=Product::find($id);
+      if(($product->quantity)>0){
       if(Auth::user()){
       $user=Auth::user()->userable_id;
       $order=Order::create([
@@ -68,6 +87,8 @@ $product=Product::findOrFail($id);
          'done'=>true,
          'client_id'=>$user,
       ]);
+      return redirect()->back()->with('success', 'Product added to cart successfully!');
+         }
        }
    }
 
@@ -97,6 +118,10 @@ $order=Order::create([
    'totalPrice'=>$total,
    'done'=>true,
 ]);
+// Empty the cart session
+session()->forget('cart');
+return redirect()->back()->with('success', 'Product added to cart successfully!');
+
 }
 else
 return ;
