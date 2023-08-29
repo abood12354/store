@@ -58,8 +58,11 @@ Route::put('/profile/edite/{id}', [IndexController::class,'editeProfile'])
 // Show all reviews 
 
 // /{id}
-Route::post('/show_reviews', [ReviewController::class,'index']) 
+Route::get('/show_reviews', [ReviewController::class,'show']) 
 ->middleware(['auth', 'verified'])->name('show_comment');
+
+Route::post('/get_all_comment', [ReviewController::class,'index']) 
+->middleware(['auth', 'verified'])->name('get_all_comment');
 
 // Submit a new review
 Route::post('/reviews', [ReviewController::class,'store'])
@@ -72,6 +75,11 @@ Route::post('/buy/{id}', [CartController::class,'buy'])
 
 Route::post('/buy_by_cart', [CartController::class,'buy_by_cart'])
 ->middleware(['auth', 'verified'])->name('buy_by_cart');
+
+
+
+Route::post('/remove_from_cart/{id}', [CartController::class,'remove_from_cart'])
+->middleware(['auth', 'verified'])->name('remove_from_cart');
 
 
 

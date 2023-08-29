@@ -31,7 +31,7 @@ $media=$product->Media()->first();
                              <img src="{{$newUrl}}"> 
                                 </div>
                                 <div class="product-item">
-                                    <img src="{{$newUrl}}}" alt="product">
+                                    <img src="{{$newUrl}}" alt="product">
                                 </div>
                                 
                             </div>
