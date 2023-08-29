@@ -37,12 +37,7 @@ Route::get('/index', [IndexController::class,'index'])
 ->middleware(['auth', 'verified'])->name('main_page');
 
 
-//CMS Pages 
-$cmsUrls= CmsPage::select('url')->where('status',1)->get()->pluck('url')->toArray();
-foreach ($cmsUrls as $url){
 
-   Route::get('/'.$url, [CmsFrontController::class, 'cmsPage'])->name('cmsPage');
-}
 
 
 
@@ -133,7 +128,13 @@ Route::group(['middleware'=>['admin']],function(){
     Route::post('update-cms-pages-status', [CmsContoller::class, 'update'])->name('update_cms_pages_status');
     Route::match(['get','post'],'add-edit-cms-page/{id?}', [CmsContoller::class, 'edit'])->name('add_edit_cms_page');
     Route::get('delete-cms-page/{id?}', [CmsContoller::class, 'destroy'])->name('delete_cms');
+//CMS Pages 
+//comment here
+$cmsUrls= CmsPage::select('url')->where('status',1)->get()->pluck('url')->toArray();
+foreach ($cmsUrls as $url){
 
+   Route::get('/'.$url, [CmsFrontController::class, 'cmsPage'])->name('cmsPage');
+}
 
     
   //subadmins
