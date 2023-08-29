@@ -9,12 +9,14 @@ use App\Http\Requests\UpdateAdminPasswordRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\AdminsRule;
 use App\Models\User;
+
 //use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -23,13 +25,23 @@ class AdminController extends Controller
         return view('dashboard.admin.dashboard');
 
     }
+
+
     public function login(Request $request){
+      $message="you are banned or unactive please content the support";
+      $data=$request->all();
+      
+    
         if(Auth::guard('admin')->check()) {
+        
             // Admin is already logged in
             return redirect()->intended();
+          
           }
+        
+                    
+
         if($request->isMethod('post')) {
-          $data=$request->all();
     
             $rules = [
                 'email' => 'required|email|max:255',
@@ -72,45 +84,33 @@ class AdminController extends Controller
                   setcookie("password","");
                 }
 
+                if(Admin::where('user_id',User::where('email',$data['email'])->first()->id)->first()->status==1){
                  return redirect("dashboard");
+                }else{
+                  Auth::guard('admin')->logout();
+                  Session::put('error_message',$message);
+                     return redirect('adminlogin');
+                    // return redirect("adminlogin")->withErrors(['email' => 'you are banned or unactive please content the support']);
+                }
              } else {
-                return redirect("dashboard")->back()->withErrors(['email' => 'not an admin']);
+              $message='not an admin';
+              Session::put('error_message',$message);
+              return redirect('adminlogin');
+               
              }
            
             
             }else{
-                return redirect("dashboard")->back()->withErrors(['email' => 'Invalid email or password']);
+              $message='Invalid email or password';
+              Session::put('error_message',$message);
+              return redirect('adminlogin');
+              
               }
 
         }
         return view('dashboard.admin.adminlogin');
     }
-    /* public function updatePassword(Request $request)
-    {
 
-        if($request->isMethod('post')) {
-          $request=new UpdateAdminPasswordRequest;
-            $user = auth()->guard('admin')->user();
-
-           $data = $request->validated();
-
-            if ($request->updatePassword($data, $user)) {
-                return redirect()
-                    ->back()
-                    ->with('success_message', 'Password updated successfully!');
-
-            } else {
-                return redirect()
-                    ->back()
-                    ->with('error_message', 'Current password is wrong');
-            }
-
-        }
-
-        return view('dashboard.admin.update_password');
-        
-    }
-    */
   
     public function updatePassword(Request $request){
 
@@ -134,7 +134,6 @@ class AdminController extends Controller
           }
       
         }
-      
         return view('dashboard.admin.update_password');
       
       }
@@ -161,7 +160,13 @@ class AdminController extends Controller
   
         //  echo "<pre>"; print_r($data);die;
            // dd( $data);
-                $this->validate($request,$rules);
+         //   Validator::make($request->all(), $rules);
+        $this->validate($request,$rules);
+          
+          //  if($validator->fails()){
+           
+          //   return view('dashboard.admin.update_details');
+          //  }
   
               $adminData->username=$data['username'];
               $adminData->firstName=$data['firstName'];
@@ -174,8 +179,8 @@ class AdminController extends Controller
                 $adminData->save();
               $message="Admin Updated Secessfully";
                 
-                
-               return redirect('dashboard')->with('success_message',$message);
+              Session::put('success_message',$message);
+               return redirect('dashboard');
   
       }
       return view('dashboard.admin.update_details')->with(compact('title','adminData'));
@@ -275,8 +280,10 @@ class AdminController extends Controller
   
       return view('dashboard.admin.pages.subadmins' , compact('subadmins'));
     }else{
+      
       $message="Only Super Admins have premission to use this feature";
-      return Redirect::back()->with('error', $message);
+      Session::put('error',$message);
+      return Redirect::back();
     }
   
     }
@@ -307,7 +314,9 @@ class AdminController extends Controller
   
         Admin::where('user_id',$id)->delete();
         User::where('id',$id)->delete();
-        return redirect()->back()->with('success_message',$username['username'].' Has been deleted!');
+        Session::put('success_message',$username['username'].' Has been deleted!');
+
+        return redirect()->back();
     }
 
     public function editSubadmin(Request $request,$id=null){
@@ -373,9 +382,9 @@ class AdminController extends Controller
                                        'userable_id' => $adminId
                                  ]);
               }
+            Session::put('success_message',$message);
+             return redirect('subadmins');
               
-             return redirect('subadmins')->with('success_message',$message);
-
     }
     return view('dashboard.admin.pages.add_edit_subadmin')->with(compact('title','subadminData'));
     }
@@ -391,7 +400,7 @@ class AdminController extends Controller
          // dd($data['cms_pages']);
           AdminsRule::where('admin_id',$id)->delete();
         
-        
+     //   dd($data);
         foreach ($data as $key => $value) {
           if(isset($value['view'])){
               $view= $value['view'];
@@ -408,7 +417,7 @@ class AdminController extends Controller
                 }else{
                 $full=0;
                 }
-              }
+              
         /* if(isset($data['cms_pages']['view'])){
             $cms_pages_view=$data['cms_pages']['view'];
           }else{
@@ -435,8 +444,11 @@ class AdminController extends Controller
             $role->edit_access=$edit;
             $role->full_access= $full;
             $role->save();
+        }
             $message="SubAdmin Roles Updated successfully for ".$subadmin['username'];
-            return redirect('subadmins')->with('success_message',$message);
+            Session::put('success_message',$message);
+
+            return redirect('subadmins');
           }
           
           $title ="Update '" .$subadmin['username']."' Rules&Permission";

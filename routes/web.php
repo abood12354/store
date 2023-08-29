@@ -9,7 +9,7 @@ use App\Http\Controllers\WEB\Product_CardController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WEB\CartController;
 use App\Http\Controllers\WEB\ProductPageController;
 use App\Http\Controllers\WEB\ReviewController;
@@ -30,28 +30,20 @@ use App\Models\CmsPage;
 |
 */
 
-// Route::get('/', function () {
-//     return view('/dashboard');
-// })->middleware('auth');
+
 
 Route::get('/index', [IndexController::class,'index'])
 ->middleware(['auth', 'verified'])->name('main_page');
-// Route::get('/index_2', [Product_CardController::class,'index'])
-// ->middleware(['auth', 'verified'])->name('main_page_1');
 
-// Route::get('login/form', [LoginController::class, 'index'])
-// ->name('login-form-2');
 
 //CMS Pages 
-//$cmsUrls= CmsPage::select('url')->where('status',1)->get()->pluck('url')->toArray();
-//foreach ($cmsUrls as $url){
+$cmsUrls= CmsPage::select('url')->where('status',1)->get()->pluck('url')->toArray();
+foreach ($cmsUrls as $url){
 
-   // Route::get('/'.$url, [CmsFrontController::class, 'cmsPage'])->name('cmsPage');
-//}
+   Route::get('/'.$url, [CmsFrontController::class, 'cmsPage'])->name('cmsPage');
+}
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::post('/Search', [IndexController::class,'search'])
 ->middleware(['auth', 'verified'])->name('Post_Search');
@@ -132,10 +124,16 @@ Route::group(['middleware'=>['admin']],function(){
     Route::get('subadmins', [AdminController::class, 'subadmins'])->name('subadmins');
     Route::post('update-subadmin-status', [AdminController::class, 'updateSubadmin'])->name('update_subadmin_status');
     Route::match(['get','post'],'add-edit-subadmin/{id?}', [AdminController::class, 'editSubadmin'])->name('add_edit_subadmin');
-    Route::get('delete-subadmin/{id?}', [AdminController::class, 'destroySubadmin'])->name('delete_subadmin');
+    Route::get('delete-subadmin/{id}', [AdminController::class, 'destroySubadmin'])->name('delete_subadmin');
     Route::match(['get','post'],' update-rule-subadmin/{id}', [AdminController::class, 'updateRule'])->name('update_rule_subadmin');
-                                    
-   
+    
+    //categories
+    
+    Route::get('categories', [CategoryController::class, 'index'])->name('categories');
+    Route::post('update-category-status', [CategoryController::class, 'update'])->name('update_category_status');
+    Route::match(['get','post'],'add-edit-category/{id?}', [CategoryController::class, 'edit'])->name('add_edit_category');
+    Route::get('delete-category/{id}', [CategoryController::class, 'destroy'])->name('delete_category');
+
 });
 
 

@@ -20,14 +20,20 @@
       <Strong>success: </Strong>{{ Session::get('success_message') }}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
+        @php
+        Session::forget('success_message');
+        @endphp
       </button>
       </div>
       @endif
-      @if(Session::has('error'))
+    @if(Session::has('error'))
       <div class="alert alert-danger alert-dissible fade show" role="alert">
       <Strong>Error: </Strong>{{ Session::get('error') }}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
+        @php
+        Session::forget('error');
+        @endphp
       </button>
       </div>
    

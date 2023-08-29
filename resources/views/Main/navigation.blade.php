@@ -255,49 +255,39 @@
                             <!-- desktop logo Ends -->
                             <!-- navbar menu Start -->
                             <div class="navbar-menu">
+                                
+                                    
+                               
                                 <ul class="main-menu">
+                                    @foreach ($getCategories as $cat)
                                     <li class="position-static menu-item-has-children">
-                                        <a href="#">Womans</a>
+                                        <a href="#">{{ $cat['category_name'] }}</a>
                                         <!-- sub mega dropdown Start -->
                                         <ul class="sub-mega-dropdown">
                                             <li>
                                                 <div class="mega-dropdown-menu">
                                                     <ul class="container mega-dropdown d-flex flex-wrap">
+                                                        @if(!empty($cat['subcategories']))
+                                                        @foreach ($cat['subcategories'] as $subcat ) 
                                                         <li class="mega-dropdown-list menu-item-has-children">
-                                                            <h6 class="heading-6 font-weight-500 mega-title">New Arrivals
+                                                            <a href="category.html"> <h6 class="heading-6 font-weight-500 mega-title">{{ $subcat['category_name']; }}
                                                             </h6>
+                                                        </a><
                                                             <ul>
-                                                                <li><a href="category.html">Dresses</a></li>
-                                                                <li><a href="category.html">Jackets</a></li>
-                                                                <li><a href="category.html">Hoodies & Sweatshirts</a></li>
-                                                                <li><a href="category.html">Sweaters</a></li>
-                                                                <li><a href="category.html">Tops & Tees</a></li>
-                                                                <li><a href="category.html">Party Dresses</a></li>
+                                                              
+                                                                    
+                                                                @if(!empty($subcat['subcategories']))
+                                                                @foreach ($subcat['subcategories'] as $subsubcat ) 
+                                                                   
+                                                              
+                                                                <li><a href="category.html">{{ $subsubcat['category_name']; }}</a></li>
+                                                                @endforeach
+                                                                @endif
                                                             </ul>
                                                         </li>
-                                                        <li class="mega-dropdown-list menu-item-has-children">
-                                                            <h6 class="heading-6 font-weight-500 mega-title">Trending</h6>
-                                                            <ul>
-                                                                <li><a href="category.html">Dresses</a></li>
-                                                                <li><a href="category.html">Jackets</a></li>
-                                                                <li><a href="category.html">Hoodies & Sweatshirts</a></li>
-                                                                <li><a href="category.html">Sweaters</a></li>
-                                                                <li><a href="category.html">Tops & Tees</a></li>
-                                                                <li><a href="category.html">Party Dresses</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="mega-dropdown-list menu-item-has-children">
-                                                            <h6 class="heading-6 font-weight-500 mega-title">Accessories
-                                                            </h6>
-                                                            <ul>
-                                                                <li><a href="category.html">Hoodies & Sweatshirts</a></li>
-                                                                <li><a href="category.html">Jackets & Coats</a></li>
-                                                                <li><a href="category.html">Pants</a></li>
-                                                                <li><a href="category.html">Jeans</a></li>
-                                                                <li><a href="category.html">Tops & Tees</a></li>
-                                                                <li><a href="category.html">Casual Shorts</a></li>
-                                                            </ul>
-                                                        </li>
+                                                        @endforeach
+                                                        @endif
+                                                        
                                                         <li class="mega-dropdown-list">
                                                             <img src="{{asset('assets/images/menu-slider-1.png')}}" alt="">
                                                         </li>
@@ -307,9 +297,7 @@
                                         </ul>
                                         <!-- sub mega dropdown Ends -->
                                     </li>
-                                    <li><a href="category.html">mens</a></li>
-                                    <li><a href="category.html">Kids</a></li>
-                                    <li><a href="category.html">Accessories</a></li>
+                                    @endforeach 
                                     <li class="menu-item-has-children">
                                         <a href="#">Pages</a>
                                         <!-- sub menu Start -->

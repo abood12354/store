@@ -47,7 +47,11 @@
             <Strong>Error: </Strong>{{ Session::get('error_message') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
+              @php
+              Session::forget('error_message');
+              @endphp
             </button>
+
             </div>
             @endif
 
@@ -56,6 +60,9 @@
             <Strong>success: </Strong>{{ Session::get('success_message') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
+              @php
+              Session::forget('success_message');
+              @endphp
             </button>
             </div>
             @endif

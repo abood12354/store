@@ -177,11 +177,23 @@ i span{
 
 @section('content')
 
+@if(Session::has('error_message'))
+
+<span style="color: red;"> {{ Session::get('error_message') }}</span>
+  @php
+  Session::forget('error_message');
+  @endphp
+</button>
+</div>
+@endif
 
 <div class="bg-img">
      <div class="content">
         <header>Login Form</header>
-
+        {{-- @php
+          dd(Session::has('error_message'));
+        @endphp --}}
+       
         
         @if ($errors->any())
 
@@ -193,6 +205,7 @@ i span{
         
         @endif
 
+
         <form action="{{ url('adminlogin') }}" method="POST">
           @csrf
           <span class="fa fa-user spany">Email</span>
@@ -200,6 +213,7 @@ i span{
             <span class="fa fa-user"></span>
             <!-- <input type="text" placeholder="Email" > -->
 
+    
        
             <x-input-label for="email"  />
             <!-- class="block mt-1 w-full" -->

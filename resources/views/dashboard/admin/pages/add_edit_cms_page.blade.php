@@ -37,26 +37,22 @@
           <div class="card-header">
             <h3 class="card-title">{{ $title }}</h3>
 
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
+
           </div>
           <!-- /.card-header -->
           <div class="card-body">
+            @php
+              dd($errors->all());
+            @endphp
             @if ($errors->any())
-
-            @foreach ($errors->all() as $error)
-            
-            <span style="color: red;">{{ $error }}</span>
-            
-            @endforeach
-            
-            @endif
+            <div class="alert alert-danger">
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
                 <form name="cmsForm" id="cmsForm" @if(empty($cmsPage['id']))action="{{ url('add-edit-cms-page') }}" 
                 @else action="{{ url('add-edit-cms-page/'.$cmsPage['id']) }}" @endif method="POST">
                     @csrf

@@ -37,14 +37,7 @@
           <div class="card-header">
             <h3 class="card-title">{{ $title }}</h3>
 
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
+       
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -107,7 +100,67 @@
                         <label>    Full Access 'create and delete' &nbsp; &nbsp; &nbsp </label>
 
                       </div>
+                      <div>
+
+                        <input type="hidden" name="user_id" value="{{ $id }}">
     
+    
+                        @if(!@empty($subAdminRoles))
+    
+                        @foreach ($subAdminRoles as $role) 
+           
+                            @if($role['module']=='categories')
+                             @if($role['view_access']==1)
+                            @php $viewCategories="checked" @endphp
+                              @else
+                              @php $viewCategories="" @endphp
+    
+                              @endif
+                              @if($role['edit_access']==1)
+                            @php $editCategories="checked" @endphp
+                              @else
+                              @php $editCategories="" @endphp
+    
+                              @endif
+                              @if($role['full_access']==1)
+                            @php $fullCategories="checked" @endphp
+                              @else
+                              @php $fullCategories="" @endphp
+    
+                              @endif
+    
+    
+    
+    
+                            @endif
+                        @endforeach
+                          @endif
+    
+    
+                         
+    
+                          <div class="card-body">
+                            <label for="url">Category:&nbsp </label>
+                            <input type="checkbox"   name="categories[view]" value="1" @if(isset($viewCategories)){{ $viewCategories }}@endif>
+                          <label>   View Access &nbsp; &nbsp; &nbsp  </label>
+                            <input type="checkbox" "  name="categories[edit]" value="1"@if(isset($editCategories)){{ $editCategories }}@endif >
+                            <label>   View/Edit Access &nbsp; &nbsp;</label>
+                            <input type="checkbox"   name="categories[full]" value="1"@if(isset($fullCategories)){{ $fullCategories }}@endif >
+                            <label>    Full Access 'create and delete' &nbsp; &nbsp; &nbsp </label>
+    
+                          </div>
+    
+                
+                <!-- /.row -->
+              </div>
+              
+              <!-- /.card-body -->
+           
+            </div>
+    
+          
+        
+          </div>
                     <div>
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -115,15 +168,10 @@
             
             <!-- /.row -->
           </div>
-          <!-- /.card-body -->
-          <div class="card-footer">
-           
-          </div>
-        </div>
 
-      
-    
-      </div>
+
+  
+  
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->

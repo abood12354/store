@@ -9,9 +9,11 @@ use App\Models\Admin as Admin1;
 
 use App\Models\AdminsRule;
 use App\Models\CmsPage;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class CmsContoller extends Controller
 {
@@ -22,7 +24,8 @@ class CmsContoller extends Controller
     {
         
         $cmsPages=CmsPage::get()->toArray();
-
+       // $products = Product::all()->toArray();
+      //  dd($products);
         //set subadmin premission for cms pages
         $pageModule=array();
         $cmcpagesModuleCount=AdminsRule::where(['admin_id'=>Auth::guard('admin')->user()->id,'module'=>'cms_pages'])
@@ -36,7 +39,9 @@ class CmsContoller extends Controller
             $message="You don't have premission to use this feature";
           
            //return back()->withInput()->with('error', $message)->route('dashboard');
-           return Redirect::back()->with('error', $message);
+           Session::put('error',$message);
+
+           return Redirect::back();
         }//there's some premissions
         else{
 
@@ -85,22 +90,30 @@ class CmsContoller extends Controller
             $title="Add CMS page";
             $cmsPage=new CmsPage;
             $message="CMS Page added secessfully";
+            $rules=[
+
+                'title'=>'required|unique:cms_pages,title',
+                'url'=>'required|unique:cms_pages,url',
+                'description'=>'required'
+            ];
         }else{
             $title="Edit CMS Page";
             $cmsPage = CmsPage::find($id);
             $message="CMS Page updated secessfully";
+            $rules=[
+
+                'title'=>'required|unique:cms_pages,title,'.$id,
+                'url'=>'required|unique:cms_pages,url,' . $id,
+                'description'=>'required'
+            ];
         }
         if($request->isMethod('post')){
             $data=$request->all();
             
-
+           
             //cms valdition
 
-            $rules=[
-                'title'=>'required',
-                'url'=>'required',
-                'description'=>'required'
-            ];
+           
             
                  $this->validate($request,$rules);
                  //echo "<pre>"; print_r($data);die;
@@ -112,7 +125,8 @@ class CmsContoller extends Controller
                 $cmsPage->meta_keywords=$data['meta_keywords'];
                 $cmsPage->status=1;
                 $cmsPage->save();
-                return redirect('cms-pages')->with('success_message',$message);
+                Session::put('success_message',$message);
+                return redirect('cms-pages');
 
         }
         return view('dashboard.admin.pages.add_edit_cms_page')->with(compact('title','cmsPage'));
@@ -144,6 +158,8 @@ class CmsContoller extends Controller
     {
         //delete
         CmsPage::where('id',$id)->delete();
-        return redirect()->back()->with('success_message','CMS Page Has been deleted!');
+        Session::put('success_message','CMS Page Has been deleted!');
+
+        return redirect()->back();
     }
 }

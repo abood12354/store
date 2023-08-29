@@ -8,12 +8,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">CMS Pages</h1>
+            <h1 class="m-0">Categories</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active">CMS Pages</li>
+              <li class="breadcrumb-item active">Categories</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -46,54 +46,65 @@
                 @endif
                 <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title">CMS Table</h3>
-                    @if($pageModule['full_access']==1)
-                  <a style="max-width: 150px; float: right;display:inline-block" href="{{ url('add-edit-cms-page') }}" 
-                  class="btn btn-block btn-primary"> Add CMS Page</a>
+                    <h3 class="card-title">Categories Table</h3>
+                    @if($categoriesModule['full_access']==1)
+                  <a style="max-width: 150px; float: right;display:inline-block" href="{{ url('add-edit-category') }}" 
+                  class="btn btn-block btn-primary">New Cetagory</a>
                 </div>
+                
                 @endif
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="cmspages" class="table table-bordered table-striped">
+                  <table id="categories" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Title</th>
+                      <th>Name</th>
+                      <th>Parent Category</th>
                       <th>URL</th>
-                      <th>Created On</th>
                       <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($cmsPages as $page )
-                            
+                     
+                        @foreach ($categories as $category )
+                        
 
                     <tr>
-                      <td maxlength="10">{{ $page['id'] }}</td>
-                      <td maxlength="10">{{ $page['title'] }}</td>
-                      <td maxlength="10">{{ $page['url'] }}</td>
-                      <td>{{date("F j, Y, g:i a", strtotime( $page['created_at'])); }}</td>
-                      <td>    
+                      <td maxlength="10">{{ $category['id'] }}</td>
+                      <td maxlength="10">{{ $category['category_name'] }}</td>
+                      <td maxlength="10">
+                      @if(isset($category['parentcategory']['category_name']))
+                    {{$category['parentcategory']['category_name'] }}
+                    @else
+                    Super Category
+                    @endif
+                    
+                      </td>
+                      <td maxlength="10">{{ $category['url'] }}</td>
+                    
+                    
+                    <td>    
 
-                        @if($pageModule['edit_access']==1||$pageModule['full_access']==1)
+                      @if($categoriesModule['edit_access']==1||$categoriesModule['full_access']==1)
                         
-                          @if($page['status']==1)
-                               <a class="updateCmsPageStatus" id="page_{{ $page['id'] }}" page_id="{{ $page['id'] }}"
+                          @if($category['status']==1)
+                               <a class="updateCategoryStatus" id="category_{{ $category['id'] }}" category_id="{{ $category['id'] }}"
                                herf="javascript:void(0)">  <i class="fas fa-toggle-on" style="color: rgb(0, 115, 255)" status="Active"></i></a>
                           @else
-                              <a class="updateCmsPageStatus" id="page_{{ $page['id'] }}" style="color: gray" page_id="{{ $page['id'] }}"
+                              <a class="updateCategoryStatus" id="category_{{ $category['id'] }}" style="color: gray" category_id="{{ $category['id'] }}"
                               herf="javascript:void(0)">  <i class="fas fa-toggle-off" status="Inactive"></i></a>
                           @endif
                           &nbsp;   &nbsp;
-                          @endif
-                          @if($pageModule['edit_access']==1||$pageModule['full_access']==1)
-                              <a href="{{ url('add-edit-cms-page/'.$page['id']) }}"> <i class="fas fa-edit"></i>
+                           @endif
+                           @if($categoriesModule['edit_access']==1||$categoriesModule['full_access']==1)
+                              <a href="{{ url('add-edit-category/'.$category['id']) }}"> <i class="fas fa-edit"></i>
                                 &nbsp;   &nbsp;
-                          @endif
-                          @if($pageModule['full_access']==1)
-                              <a href="{{ url('delete-cms-page/'.$page['id']) }}" class="confirmDelete" name="CMS Page" title="Delete CMS Page" style="color: red"> <i class="fas fa-trash"></i>
-                          
-                          @endif
+                    @endif
+                    @if($categoriesModule['full_access']==1)
+                              <a href="{{ url('delete-category/'.$category['id']) }}" class="confirmDelete" name="category Page" title="Delete category Page" style="color: red"> <i class="fas fa-trash"></i>
+                    @endif
+                     
                     </td>
                     </tr>
                     @endforeach
