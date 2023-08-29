@@ -164,15 +164,14 @@
     
                             <div class="product-price">
                                 <h6 class="price-title">Price: </h6>
-                                <p class="sale-price">///</p>
-                                <p class="regular-price">$ 179 USD</p>
+                    
+                                <p class="sale-price">${{$product?->sell}}</p>
+                                <p class="regular-price">${{$product?->price}}</p>
+
                             </div>
     
                             <div class="product-btn">
-                                <a href="javascript:void(0)" class="main-btn primary-btn">
-                                    <img src="assets/images/icon-svg/cart-4.svg" alt="">
-                                    Add to cart
-                                </a>
+             
                                 <!-- <a href="" class="main-btn secondary-1-btn"> -->
                                     <form action="{{route('buy',$product->id)}}" method="post">
                                         @csrf
