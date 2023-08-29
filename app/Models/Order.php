@@ -12,6 +12,7 @@ class Order extends Model
     protected $fillable = [
         'totalPrice',
         'done',
+        'client_id',
     ];
 
     public function client(){

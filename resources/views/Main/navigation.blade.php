@@ -195,13 +195,17 @@
     
                                         <div class="checkout-footer">
                                             <div class="checkout-sub-total d-flex justify-content-between">
-                                                <p class="value">Subtotal Price:</p>
-                                                <p class="price">$144</p>
+                                                <p class="value"></p>
+                                                <p class="price"></p>
                                             </div>
+                                            <form action="{{route('buy_by_cart')}}"  method="post">
                                             <div class="checkout-btn">
-                                                <a href="cart-page.html" class="main-btn primary-btn-border">View Cart</a>
-                                                <a href="checkout-page.html" class="main-btn primary-btn">Checkout</a>
+                                                <!-- <a href="cart-page.html" class="main-btn primary-btn-border">View Cart</a> -->
+                                                <!-- <a href="checkout-page.html" class="main-btn primary-btn">Checkout</a> -->
+                                                    @csrf
+                                                    <button  class="main-btn primary-btn" > buy now  </button>
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -382,13 +386,17 @@
     
                                             <div class="checkout-footer">
                                                 <div class="checkout-sub-total d-flex justify-content-between">
-                                                    <p class="value">Subtotal Price:</p>
-                                                    <p class="price">$144</p>
+                                                    <p class="value"></p>
+                                                    <p class="price"></p>
                                                 </div>
                                                 <div class="checkout-btn">
-                                                    <a href="cart-page.html" class="main-btn primary-btn-border">View
-                                                        Cart</a>
-                                                    <a href="checkout-page.html" class="main-btn primary-btn">Checkout</a>
+                                                <form action="{{route('buy_by_cart')}}"  method="post">
+                                                    @csrf
+                                                    <!-- <a href="cart-page.html" class="main-btn primary-btn-border">View
+                                                        Cart</a> -->
+                                                        <button  class="main-btn primary-btn" > buy now  </button>
+                                                    <!-- <a href="checkout-page.html" class="main-btn primary-btn">Checkout</a> -->
+                                                </form>
                                                 </div>
                                             </div>
                                         </div>

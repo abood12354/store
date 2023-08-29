@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 class ReviewController extends Controller
 {
   // string $id
-    public function index1()
+    public function index()
     {
-    $comments = Comment::latest()->get();
+    $comments = Comment::all();
     // $product = Product::take('id')->first();
     //return view('Page.product-details-page', compact('comments','product'));
     return view('Sections.Second_Page.Reviews', compact('comments'));   
@@ -21,18 +21,18 @@ class ReviewController extends Controller
 
      public function store(Request $request) 
 {
-  $comments = new Comment();
-  $comments->body = $request->body;
+  $comments = Comment::create([
+  'body' => $request->body,
 //   $comments->rating = $request->input('rating');
-  $comments->user_id = auth()->id();
-  $comments->product_id=$request->idd;
-  $comments->save();
+  'user_id' => auth()->id(),
+  'product_id'=>$request->idd,
+]);
+  return response()->json(['div_add_comment'=>'favorite successfuly']);
+}
+
+}
 
   //,compact('id')
   // ->route('product_page',compact('id'));
   //return redirect()->route('product_page',compact('idd'));
   // return redirect()->route('show_review');
-  return response()->json(['div_add_comment'=>'favorite successfuly']);
-}
-
-}
