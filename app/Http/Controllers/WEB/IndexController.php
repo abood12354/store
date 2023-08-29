@@ -15,8 +15,10 @@ class IndexController extends Controller
 
     public function index()
     {
-        $products = Product::with('Media')->take(6)->get();
-        $products2 = Product::with('Media')->skip(6)->take(6)->get();
+        $products = Product::take(6)->get();
+        $products2 = Product::skip(6)->take(6)->get();
+        // foreach($products as $product){
+        //dd($product->getFirstMedia());}
         return view('Page.index' , compact('products','products2'));
 
         // $products = Product::with('Media')->orderByDesc('created_at')->paginate();

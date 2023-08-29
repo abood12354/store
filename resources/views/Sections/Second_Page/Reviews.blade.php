@@ -1,12 +1,8 @@
-<!-- @extends('Layouts.main')
-    
-    @section('style')
-
-    @endsection
+    <!--====== Reviews Part Start ======-->
+   
 
 
-@section('content')
-<section class="reviews-wrapper pt-100 pb-100 ">
+    <section class="reviews-wrapper pt-100 pb-100 ">
         <div class="container">
             <div class="reviews-style">
                 <div class="reviews-menu">
@@ -119,13 +115,13 @@
                                             <li class="star" data-value='5'><i class="mdi mdi-star"></i></li>
                                         </ul>
                                     </div>
-                                    <div class="rating-form">
-                                        <form action="{{route('add_review')}}" method="post">
+                                    <div id="div_add_comment" class="rating-form">
+                                        <form action="{{url('reviews')}}" id="add_comment" method="post">
                                             @csrf
                                             <div class="single-form form-default">
                                                 <label>Write your Review</label>
                                                 <div class="form-input">
-                                                    <input type="hidden" id="id" value="{{ $product }}" />
+                                                    <input type="hidden" name="idd" value="{{$product->id}}" />
                                                     <textarea placeholder="Your review here" name="body"></textarea>
                                                     <i class="mdi mdi-message-text-outline"></i>
                                                 </div>
@@ -142,7 +138,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="rating-form-btn">
-                                                    <button class="main-btn primary-btn">write a Review</button>
+                                                    <button class="main-btn primary-btn" type="submit">write a Review</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -150,20 +146,53 @@
                                 </div>
                             </div>
                         
+
+
+                            
+<script>
+$(document).ready(function () {
+
+    $('#add_comment').on('submit',function(event){
+
+        event.preventDefault();
+        jQuery.ajax({
+            url:"{{url('reviews')}}",
+            data:jQuery('#add_comment').serialize(),
+            type:'post',
+            success:function(result)
+            {
+            $('#div_add_comment').css('display','block');
+            jQuery('#div_add_comment').html(result.message);
+            jQuery('#add_comment')[0].reset();
+            }
+        });
+
+    });
+  });
+</script>
+
+
+
+
+
                             <div class="reviews-btn flex-wrap">
                                 <div class="reviews-btn-left">
                                     <div class="dropdown-style">
                                         <div class="dropdown dropdown-white">
-                                            <button class="main-btn primary-btn" type="button" id="dropdownMenu-1" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="true"> All Stars (213) <i
-                                                    class="mdi mdi-chevron-down"></i></button>
-                        
-                                            <ul class="dropdown-menu sub-menu-bar" aria-labelledby="dropdownMenu-1">
+                                            
+                                            <form  action="{{route('show_comment')}}"  method="POST" >
+                                                @csrf
+                                            <button class="main-btn primary-btn" type="submit" id="dropdownMenu-1" data-toggle="dropdown"
+                                                aria-haspopup="true" name="show_commentt" aria-expanded="true"> Show All Comments</button>
+                                                    </form>
+
+                                               
+                                            <!--<ul class="dropdown-menu sub-menu-bar" aria-labelledby="dropdownMenu-1">
                                                 <li><a href="#">Dropped Menu 1</a></li>
                                                 <li><a href="#">Dropped Menu 2</a></li>
                                                 <li><a href="#">Dropped Menu 3</a></li>
                                                 <li><a href="#">Dropped Menu 4</a></li>
-                                            </ul>
+                                            </ul> -->
                                         </div>
                                     </div>
                                     <div class="dropdown-style">
@@ -188,39 +217,19 @@
                                 </div>
                             </div>
                         
+                            
+                        
                             <div class="reviews-comment">
-                                <ul class="comment-items">
-                                    <li>
-                                        <div class="single-review-comment">
-                                            <div class="comment-user-info">
-                                                <div class="comment-author">
-                                                    <img src="assets/images/review/author-1.jpg" alt="">
-                                                </div>
-                                                <div class="comment-content">
-                                                    <h6 class="name">User Name</h6>
-                        
-                                                    <p>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <span class="rating"><strong>4</strong> of 5</span>
-                                                        <span class="date">20 Nov 2019 22:01</span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="comment-user-text">
-                                                <p>Good headphones. The sound is clear. AND the bottoms repyat and top ring. Currently
-                                                    are really not taken. For me quiet. With my Beats of course can not be compared. But
-                                                    for the money and definitely recommend. The one who took happy as an elephant.
-                                                    Product as advertised, looks good Quality, sound is not the best but because of
-                                                    cost-benefit ratio it seems very good to me, recommended the seller .</p>
-                                                <ul class="comment-meta">
-                                                    <li><i class="mdi mdi-thumb-up"></i> <span>31</span></li>
-                                                    <li><a href="#">Like</a></li>
-                                                    <li><a href="#">Replay</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                        
-                                        <ul class="comment-replay">
+                            <ul class="comment-items">
+@if (isset($_POST['show_commentt']))
+                            @component('components.show_comment')
+                                @foreach ($comments as $comment )
+                               <x-show_comment :$comment="$comment"/>
+                            @endforeach
+                                
+@endif
+                            </ul>
+                                        <!-- <ul class="comment-replay">
                                             <li>
                                                 <div class="single-review-comment">
                                                     <div class="comment-user-info">
@@ -285,37 +294,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <div class="single-review-comment">
-                                            <div class="comment-user-info">
-                                                <div class="comment-author">
-                                                    <img src="assets/images/review/author-4.jpg" alt="">
-                                                </div>
-                                                <div class="comment-content">
-                                                    <h6 class="name">User Name</h6>
-                        
-                                                    <p>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <span class="rating"><strong>4</strong> of 5</span>
-                                                        <span class="date">20 Nov 2019 22:01</span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="comment-user-text">
-                                                <p>Good headphones. The sound is clear. AND the bottoms repyat and top ring. Currently
-                                                    are really not taken. For me quiet. With my Beats of course can not be compared. But
-                                                    for the money and definitely recommend. The one who took happy as an elephant.
-                                                    Product as advertised, looks good Quality, sound is not the best but because of
-                                                    cost-benefit ratio it seems very good to me, recommended the seller .</p>
-                                                <ul class="comment-meta">
-                                                    <li><i class="mdi mdi-thumb-up"></i> <span>31</span></li>
-                                                    <li><a href="#">Like</a></li>
-                                                    <li><a href="#">Replay</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                </ul> -->
                             </div>
                         </div>
                     </div>
@@ -348,4 +327,3 @@
         </div>
     </section>
 
-    @endsection -->

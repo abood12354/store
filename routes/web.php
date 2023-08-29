@@ -57,12 +57,23 @@ Route::put('/profile/edite/{id}', [IndexController::class,'editeProfile'])
 // Show all reviews 
 
 // /{id}
-// Route::get('/reviews', [ReviewController::class,'index1']) 
-// ->middleware(['auth', 'verified'])->name('show_review');
+Route::post('/show_reviews', [ReviewController::class,'index']) 
+->middleware(['auth', 'verified'])->name('show_comment');
 
 // Submit a new review
 Route::post('/reviews', [ReviewController::class,'store'])
 ->middleware(['auth', 'verified'])->name('add_review');
+
+
+Route::post('/buy/{id}', [CartController::class,'buy'])
+->middleware(['auth', 'verified'])->name('buy');
+
+
+Route::post('/buy_by_cart', [CartController::class,'buy_by_cart'])
+->middleware(['auth', 'verified'])->name('buy_by_cart');
+
+
+
 
 // Show shopping cart 
 Route::get('/cart', [CartController::class,'index']);

@@ -25,6 +25,13 @@ class Product extends Model implements HasMedia
         'sell',
     ];
 
+
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('images')->singleFile();
+    }
+
     // public function clients(){
     //     return $this->belongsToMany(Client::class,'favorite');
     // }

@@ -36,6 +36,15 @@ return [
             'throw' => false,
         ],
 
+        // 'public' => [
+        //     'driver' => 'local',
+        //     'root' => public_path('assets/images'),
+        //     'url' => env('APP_URL').'/storage',
+        //     'visibility' => 'public',
+        //     'throw' => false,
+        // ],
+
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -43,6 +52,21 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+
+
+
+        // 'media' => [
+        //     'driver' => 'local',
+        //     'root' => public_path(),
+        //   ],
+
+
+            'media' => [
+                'driver' => 'local',
+                'root' => public_path('media'),
+                'url' => env('APP_URL').'/media',
+            ],
+
 
         's3' => [
             'driver' => 's3',
