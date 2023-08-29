@@ -23,6 +23,9 @@ class IndexController extends Controller
 
         $products = Product::take(6)->get();
         $products2 = Product::skip(6)->take(6)->get();
+  
+    
+
         $cmsPages= CmsPage::where('status',1)->get()->toArray();
         $getCategories=Category::getCategories();
         //dd($getCategories);

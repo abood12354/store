@@ -8,6 +8,7 @@ use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminPasswordRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\AdminsRule;
+use App\Models\Product;
 use App\Models\User;
 
 //use GuzzleHttp\Psr7\Request;
@@ -22,7 +23,8 @@ class AdminController extends Controller
 {
 
     public function dashboard(){
-        return view('dashboard.admin.dashboard');
+        $products=  Product::all()->count();
+        return view('dashboard.admin.dashboard',compact('products'));
 
     }
 

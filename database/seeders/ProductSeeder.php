@@ -30,41 +30,24 @@ class ProductSeeder extends Seeder
 
 
 
-    
-//     $path = 'assets/images/product-1/product-1.jpg';
-      
-//     //   if (Storage::disk('public')->exists($path)) {
-  
-//         $contents = File::get(public_path($path));
-//         $p1=public_path($path);
-  
-//         $product1->addMediaFromDisk('public')
-//                ->toMediaCollection('images', $p1);
-  
-//     // //   } else {
-//     //     Log::error("Product image not found at path: {$path}");
-//     //   }
-  
+$product1->addMedia(storage_path('app/product-1/product-9.jpg'))->toMediaCollection();
 
 
-//     // $imageFile = public_path('assets/images/product-1/product-2.jpg');
 
-//     // $contents = File::get($imageFile);
-  
-//     // $product1->addMediaFromDisk('public')  
-//     //        ->toMediaCollection('images', $contents);
 
-//     // $product1->addMediaFromDisk('public', '/full/path/to/public/images/product-1.jpg')
-//     // ->toMediaCollection('images', 'product-1.jpg');
 
-//     // $imagePath = public_path('assets/images/product-1/product-1.jpg');
-//     //    $imagePath = storage_path('app/public/2/300.jpeg');
-//     //    $imagePath = storage_path('app/public/2/300.jpeg');
 
-//     //    dd($imagePath);
-//     // $product1->addMedia($imagePath)
-// //     $product1->addMediaFromDisk()
-// // ->toMediaCollection();
+    $product1=Product::create([
+      'status'=>"Old",
+      'name'=>"x1",
+      'price'=>2000,
+      'quantity'=>5,
+   //   'Assess'=>4,
+      'sell'=>60,
+  ]);
+
+
+$product1->addMedia(storage_path('app/product-1/product-8.jpg'))->toMediaCollection();
 
 
 
@@ -74,16 +57,6 @@ class ProductSeeder extends Seeder
 
 
 
-
-     $imagePath = public_path('assets/images/product-1/product-1.jpg');
-        
-
-
-    $product1->addMedia(storage_path('app/product-1/product-1.jpg'))->toMediaCollection();
-
-
-        $product1->addMedia($imagePath)
-    ->toMediaCollection();
 
 
 
@@ -138,9 +111,9 @@ foreach ($products as $product) {
 //   ->count(90)->create();
 // }
 
-Product::factory()->hasAttached(Color::factory()
-->count(3),[],'colors')
-->count(20)->create();
+// Product::factory()->hasAttached(Color::factory()
+// ->count(3),[],'colors')
+// ->count(20)->create();
 }
 
     

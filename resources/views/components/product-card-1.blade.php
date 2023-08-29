@@ -19,12 +19,19 @@ $media=$product->Media()->first();
                         //$path=  "{{asset('storage/$media->id/$media->file_name')}}";
                         // dd($path);
                             ?>
-                           
+                           @php
+                           $url=$product->getFirstMediaUrl();
+                                    $newUrl = str_replace(
+                                    'http://localhost', 
+                                    'http://127.0.0.1:8000',
+                                            $url
+                                        );
+                           @endphp  
                             <div class="product-item active">  
-                             <img src="{{$product->getFirstMediaUrl()}}"> 
+                             <img src="{{$newUrl}}"> 
                                 </div>
                                 <div class="product-item">
-                                    <img src="{{$product->getFirstMediaUrl()}}" alt="product">
+                                    <img src="{{$newUrl}}}" alt="product">
                                 </div>
                                 
                             </div>
