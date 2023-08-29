@@ -149,27 +149,6 @@
 
 
                             
-<script>
-$(document).ready(function () {
-
-    $('#add_comment').on('submit',function(event){
-
-        event.preventDefault();
-        jQuery.ajax({
-            url:"{{url('reviews')}}",
-            data:jQuery('#add_comment').serialize(),
-            type:'post',
-            success:function(result)
-            {
-            $('#div_add_comment').css('display','block');
-            jQuery('#div_add_comment').html(result.message);
-            jQuery('#add_comment')[0].reset();
-            }
-        });
-
-    });
-  });
-</script>
 
 
 
@@ -180,11 +159,10 @@ $(document).ready(function () {
                                     <div class="dropdown-style">
                                         <div class="dropdown dropdown-white">
                                             
-                                            <form  action="{{route('show_comment')}}"  method="POST" >
+                                            <form  action="{{route('get_all_comment')}}"  method="POST" >
                                                 @csrf
-                                            <button class="main-btn primary-btn" type="submit" id="dropdownMenu-1" data-toggle="dropdown"
-                                                aria-haspopup="true" name="show_commentt" aria-expanded="true"> Show All Comments</button>
-                                                    </form>
+                                            <button class="main-btn primary-btn" type="submit" > Show All Comments</button>
+                                            </form>
 
                                                
                                             <!--<ul class="dropdown-menu sub-menu-bar" aria-labelledby="dropdownMenu-1">
@@ -221,13 +199,7 @@ $(document).ready(function () {
                         
                             <div class="reviews-comment">
                             <ul class="comment-items">
-@if (isset($_POST['show_commentt']))
-                            @component('components.show_comment')
-                                @foreach ($comments as $comment )
-                               <x-show_comment :$comment="$comment"/>
-                            @endforeach
-                                
-@endif
+
                             </ul>
                                         <!-- <ul class="comment-replay">
                                             <li>
@@ -327,3 +299,24 @@ $(document).ready(function () {
         </div>
     </section>
 
+    <script>
+$(document).ready(function () {
+
+    $('#add_comment').on('submit',function(event){
+
+        event.preventDefault();
+        jQuery.ajax({
+            url:"{{url('reviews')}}",
+            data:jQuery('#add_comment').serialize(),
+            type:'post',
+            success:function(result)
+            {
+            $('#div_add_comment').css('display','block');
+            jQuery('#div_add_comment').html(result.message);
+            jQuery('#add_comment')[0].reset();
+            }
+        });
+
+    });
+  });
+</script>

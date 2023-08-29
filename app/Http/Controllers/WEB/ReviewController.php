@@ -12,11 +12,21 @@ class ReviewController extends Controller
   // string $id
     public function index()
     {
-    $comments = Comment::all();
+    // $comments = Comment::all();
     // $product = Product::take('id')->first();
     //return view('Page.product-details-page', compact('comments','product'));
-    return view('Sections.Second_Page.Reviews', compact('comments'));   
+    return redirect()->route('show_comment');   
   }
+
+
+
+  public function show()
+  {
+  $comments = Comment::all();
+  // $product = Product::take('id')->first();
+  //return view('Page.product-details-page', compact('comments','product'));
+  return view('Sections.Second_Page.Show_Comment', compact('comments'));   
+}
 
 
      public function store(Request $request) 

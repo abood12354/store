@@ -50,13 +50,97 @@ $product1->addMedia(storage_path('app/product-1/product-9.jpg'))->toMediaCollect
 $product1->addMedia(storage_path('app/product-1/product-8.jpg'))->toMediaCollection();
 
 
+$product1=Product::create([
+    'status'=>"Old",
+    'name'=>"x3",
+    'price'=>2000,
+    'quantity'=>5,
+ //   'Assess'=>4,
+    'sell'=>60,
+]);
+
+
+$product1->addMedia(storage_path('app/product-1/product-2.jpg'))->toMediaCollection();
+
+
+$product1=Product::create([
+    'status'=>"New",
+    'name'=>"x3",
+    'price'=>2000,
+    'quantity'=>5,
+ //   'Assess'=>4,
+    'sell'=>60,
+]);
+
+
+$product1->addMedia(storage_path('app/product-1/product-3.jpg'))->toMediaCollection();
+
+$product1=Product::create([
+    'status'=>"New",
+    'name'=>"x4",
+    'price'=>2000,
+    'quantity'=>5,
+ //   'Assess'=>4,
+    'sell'=>60,
+]);
+
+
+$product1->addMedia(storage_path('app/product-1/product-4.jpg'))->toMediaCollection();
+
+$product1=Product::create([
+    'status'=>"New",
+    'name'=>"x4",
+    'price'=>2000,
+    'quantity'=>5,
+ //   'Assess'=>4,
+    'sell'=>60,
+]);
+
+
+$product1->addMedia(storage_path('app/product-1/product-5.jpg'))->toMediaCollection();
+
+
+$product1=Product::create([
+    'status'=>"New",
+    'name'=>"x4",
+    'price'=>2000,
+    'quantity'=>5,
+ //   'Assess'=>4,
+    'sell'=>60,
+]);
+
+
+$product1->addMedia(storage_path('app/product-1/product-12.jpg'))->toMediaCollection();
 
 
 
 
 
+$product1=Product::create([
+    'status'=>"New",
+    'name'=>"x4",
+    'price'=>2000,
+    'quantity'=>5,
+ //   'Assess'=>4,
+    'sell'=>60,
+]);
 
 
+$product1->addMedia(storage_path('app/product-1/product-7.jpg'))->toMediaCollection();
+
+
+
+$product1=Product::create([
+    'status'=>"New",
+    'name'=>"x4",
+    'price'=>2000,
+    'quantity'=>5,
+ //   'Assess'=>4,
+    'sell'=>60,
+]);
+
+
+$product1->addMedia(storage_path('app/product-1/product-11.jpg'))->toMediaCollection();
 
 
 
