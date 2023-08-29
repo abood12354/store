@@ -91,29 +91,7 @@ foreach ($products as $product) {
 
 
 
-// foreach (Product::all() as $product) {
-//     // // $url = 'https://picsum.photos/200/300';
-//     // $url='/assets/images/product-1/product-2.jpg';
-//     // //$path='C:\product-1\product-2.jpg';
-//     // // $product->addMediaFromUrl($url)
-//     // // ->usingName("awddada")
-//     // // ->toMediaCollection();
 
-//     $imagePath = public_path('assets/images/product-1/');
-//     $product->addMedia($imagePath)
-//     ->toMediaCollection('images');
-// }
-
-// $products = Product::all();
-// foreach ($products as $product) {
-//     $product->hasAttached(Color::factory()
-//   ->count(20)->create(),[],'colors')
-//   ->count(90)->create();
-// }
-
-// Product::factory()->hasAttached(Color::factory()
-// ->count(3),[],'colors')
-// ->count(20)->create();
 }
 
     

@@ -16,25 +16,7 @@ class VendorSeeder extends Seeder
      */
     public function run(): void
     {
-    //     $vendor = User::factory()->create();
-    //     $vendor->userable()->associate(Vendor::factory())->create([
-    //         'userable_id' => $vendor->id,
-    // 'userable_type' => get_class($vendor),
-    //     ]);
-    //     $vendor->save(); 
 
-//         $vendor = Vendor::factory()->create();
-//         // ->associate(User::factory())
-// $vendor->userable()->create([
-//     'userable_id' => $vendor->id,
-//     'userable_type' => get_class($vendor),
-// ]);
-
-// $vendor = Vendor::factory()->count('2')->create();
-// $vendor ->User::userable()->create([
-//     'userable_id' => $vendor->id,
-//     'userable_type' => get_class($vendor),
-// ]);
 
 Vendor::factory()->count(7)->create();
 $vendors = Vendor::all();
