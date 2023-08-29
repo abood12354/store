@@ -8,6 +8,8 @@ use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminPasswordRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\AdminsRule;
+use App\Models\Client;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 
@@ -24,7 +26,9 @@ class AdminController extends Controller
 
     public function dashboard(){
         $products=  Product::all()->count();
-        return view('dashboard.admin.dashboard',compact('products'));
+        $orders=Order::all()->count();
+        $clients=Client::all()->count();
+        return view('dashboard.admin.dashboard',compact('products','orders','clients'));
 
     }
 
