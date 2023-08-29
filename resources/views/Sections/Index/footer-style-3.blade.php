@@ -23,59 +23,24 @@
     
             <div class="footer-widget-wrapper text-center pt-20">
                 <div class="row">
+
                     <div class="col-lg-3 col-md-3 col-sm-6">
                         <div class="footer-widget">
-                            <h5 class="footer-title">PRODUCT</h5>
-    
+                           
+                            <h5 class="footer-title">ADDED BY THE ADMINS</h5>
+                           
+  
+
                             <ul class="footer-link">
-                                <li><a href="javascript:void(0)">Quest</a></li>
-                                <li><a href="javascript:void(0)">Rift S</a></li>
-                                <li><a href="javascript:void(0)">Gear VR</a></li>
-                                <li><a href="javascript:void(0)">Apps and Games</a></li>
-                                <li><a href="javascript:void(0)">Apps and Games</a></li>
-                                <li><a href="javascript:void(0)">Oculus for Business</a></li>
+                                @foreach ($cmsPages as $page )
+
+                                <li><a href="{{ url('/'.$page['url']) }}"> {{ $page['title'] }} </a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div class="footer-widget">
-                            <h5 class="footer-title">DEVELOPERS</h5>
-    
-                            <ul class="footer-link">
-                                <li><a href="javascript:void(0)">Developer Centre</a></li>
-                                <li><a href="javascript:void(0)">Docs</a></li>
-                                <li><a href="javascript:void(0)">Downloads</a></li>
-                                <li><a href="javascript:void(0)">Tools</a></li>
-                                <li><a href="javascript:void(0)">Developer Blog</a></li>
-                                <li><a href="javascript:void(0)">Developer Forums</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div class="footer-widget">
-                            <h5 class="footer-title">PRODUCT</h5>
-    
-                            <ul class="footer-link">
-                                <li><a href="javascript:void(0)">Blog</a></li>
-                                <li><a href="javascript:void(0)">Careers</a></li>
-                                <li><a href="javascript:void(0)">Brand Centre</a></li>
-                                <li><a href="javascript:void(0)">Connect</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div class="footer-widget">
-                            <h5 class="footer-title">PRODUCT</h5>
-    
-                            <ul class="footer-link">
-                                <li><a href="javascript:void(0)">VR for Good</a></li>
-                                <li><a href="javascript:void(0)">Launch Pad</a></li>
-                                <li><a href="javascript:void(0)">Creators Lab</a></li>
-                                <li><a href="javascript:void(0)">Forums</a></li>
-                                <li><a href="javascript:void(0)">Support</a></li>
-                            </ul>
-                        </div>
-                    </div>
+
+
                 </div>
             </div>
     

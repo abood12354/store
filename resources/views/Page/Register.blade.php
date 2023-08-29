@@ -208,7 +208,7 @@ i span{
             <x-text-input id="lastName"  type="text" name="lastName" :value="old('lastName')" required autofocus autocomplete="name" />
             <!-- <x-input-error :messages="$errors->get('lastName')"  /> -->
           </div>
-          <span class="fa fa-user spany">gendor</span>
+          <span class="fa fa-user spany">gender</span>
           <div class="field ">
           <span class="fa fa-user"></span>
             <x-input-label for="gendor"  />

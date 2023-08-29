@@ -18,14 +18,14 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             //$table->foreignIdFor(Subcategory::class,'subcategory_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('subcategories_id')->nullable()->references('id')->on('subcategories')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignIdFor(Vendor::class)->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('catagory_id')->nullable()->references('id')->on('categories')->cascadeOnDelete()->cascadeOnUpdate();
+          //  $table->foreignIdFor(Vendor::class)->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(Admin::class)->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status',['New','Old'])->default('New');
             $table->string('name');
             $table->float('price');
             $table->integer('quantity');
-            $table->integer('Assess');
+         //   $table->integer('Assess');
             $table->decimal('sell',9,2);
             $table->timestamps();
         });

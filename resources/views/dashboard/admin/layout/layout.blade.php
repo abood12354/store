@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>AdminLTE 3 | Dashboard 2</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -13,6 +14,10 @@
   <link rel="stylesheet" href="{{url('admin/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{url('admin/assets//css/adminlte.min.css')}}">
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ url('admin/assets/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{ url('admin/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -61,5 +66,24 @@
 <script src="{{ url('admin/assets/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('admin/assets/js/pages/dashboard2.js')}}"></script>
+//custom js
+<script src="{{ url('admin/assets/js/custom.js')}}"></script>
+//tables
+<script src="{{ url('admin/assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ url('admin/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ url('admin/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script>
+  //add edit cms
+  $(function () {
+    $("#cmspages").DataTable();
+    $("#subadmins").DataTable();
+    $("#categories").DataTable();
+  });
+</script>
+
+<script src="{{ url('admin/assets/plugins/select2/js/select2.full.min.js')}}"></script>
+<script>
+   $('.select2').select2();
+</script>
 </body>
 </html>

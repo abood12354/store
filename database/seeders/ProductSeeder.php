@@ -23,18 +23,9 @@ class ProductSeeder extends Seeder
             'name'=>"Noms Watsh",
             'price'=>1000,
             'quantity'=>2,
-            'Assess'=>4,
+         //   'Assess'=>4,
             'sell'=>30,
         ]);
-
-         $imagePath = public_path('assets/images/product-1/product-1.jpg');
-        
-    //     $product1->addMedia($imagePath)
-    // ->toMediaCollection();
-    // dd($product1);
-
-    $product1->addMedia(storage_path('app/product-1/product-1.jpg'))->toMediaCollection();
-
 
 
 
@@ -84,31 +75,48 @@ class ProductSeeder extends Seeder
 
 
 
+     $imagePath = public_path('assets/images/product-1/product-1.jpg');
+        
 
 
-        $products = Product::all();
+    $product1->addMedia(storage_path('app/product-1/product-1.jpg'))->toMediaCollection();
+
+
+        $product1->addMedia($imagePath)
+    ->toMediaCollection();
+
+
+
+    $products = Product::whereNull('admin_id')->get(); 
+
+    foreach ($products as $product) {
+    
+        Product::saving(function ($product) {
+            if (!$product->admin_id) {
+              $product->admin_id = Admin::inRandomOrder()->first()->id;
+            }
+          });
+          
+          Product::whereNull('admin_id')->get()->each->save();
+    
+    }
+
+
+    $products = Product::whereNull('catagory_id')->get(); 
+
 foreach ($products as $product) {
-    Product::whereNull('vendor_id')->first()->update([
-        // 'vendor_id'=>$vendor->id,
-        'vendor_id'=>Vendor::inRandomOrder()->first()->id,
-    ]);
+
+    Product::saving(function ($product) {
+        if (!$product->catagory_id) {
+          $product->catagory_id = Category::inRandomOrder()->first()->id;
+        }
+      });
+      
+      Product::whereNull('catagory_id')->get()->each->save();
+
 }
 
-$products = Product::all();
-foreach ($products as $product) {
-    Product::whereNull('admin_id')->first()->update([
-        // 'vendor_id'=>$vendor->id,
-        'admin_id'=>Admin::inRandomOrder()->first()->id,
-    ]);
-}
 
-$products = Product::all();
-foreach ($products as $product) {
-    Product::whereNull('subcategories_id')->first()?->update([
-        // 'vendor_id'=>$vendor->id,
-        'subcategories_id'=>Subcategory::inRandomOrder()->first()?->id,
-    ]);
-}
 
 // foreach (Product::all() as $product) {
 //     // // $url = 'https://picsum.photos/200/300';

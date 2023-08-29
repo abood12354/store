@@ -23,11 +23,24 @@ class Category extends Model implements TranslatableContract
     //      return $this->belongsToMany(Subcategory::class, 'product');
     // }
 
-    public function subcategories()
-    {
-        return $this->belongsToMany(Category::class, 'subcategories', 'subcategory_id', 'parent_id');
-    }
+        public function parentcategory(){
+            return $this->hasOne(Category::class,'id','parent_id')->select('id','category_name','url')
+            ->where('status',1);
 
+        }
 
+        public function subcategories()
+        {
+            return $this->hasMany(Category::class, 'parent_id')->where('status',1);
+        }
+        
+        
+        public static function getCategories(){
+
+            $getcategories=Category::with(['subcategories'=>function($query){
+                $query->with('subcategories');
+            }])->where('parent_id',0)->where('status',1)->get()->toArray();
+           return($getcategories);
+        }
 
 }
